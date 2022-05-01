@@ -1,0 +1,82 @@
+.movie-card {
+    margin: 0 auto;
+    background-color: #222222;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
+}
+
+.movie-card__image {
+    width: 100%;
+    object-fit: cover;
+    height: 282px;
+    position: relative;
+    transition: .2s ease-in-out;
+    display: block;
+    object-position: center;
+}
+
+
+.movie-card__description {
+    display: grid;
+    margin: 0;
+    grid-template-columns: 85% 1fr;
+
+    width: 100%;
+    grid-row-gap: 9px;
+    align-self: center;
+    padding: 14px 17px 14px 14px;
+}
+
+
+.movie-card__button {
+    background-image: url('.../../../../images/Безымянный.png');
+    width: 30px;
+    height: 30px;
+    border: none;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: #222222;
+    background-size: 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: .1s linear;
+    cursor: pointer;
+    align-self: center;
+    border-radius: 36px;
+}
+
+.movie-card__name {
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    display: inline-block;
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    height: min-content;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.movie-card__duration {
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    display: flex;
+    align-items: center;
+    color: #8B8B8B;
+    margin: 0;
+    padding: 0;
+}
+
+.movie-card__button_liked {
+    background-image: url('.../../../../images/greenbut.svg');
+}

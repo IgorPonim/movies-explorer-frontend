@@ -1,0 +1,67 @@
+.about-me__grid {
+    padding: 66px 70px 100px 70px;
+
+    display: flex;
+    justify-content: space-between;
+
+
+}
+
+.about-me__description {
+
+    width: calc(100% - 304px);
+    margin-right: 49px;
+}
+
+.about-me__photo {
+    background-image: url('../../images/800px-Shiba_inu_taiki.jpg');
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: none;
+    max-width: 270px;
+    border-radius: 10px;
+}
+
+.about-me__name {
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 58px;
+    letter-spacing: -0.04em;
+    margin: 0;
+    padding: 0;
+    color: #FFFFFF;
+}
+
+.about-me__profession {
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    color: #FFFFFF;
+    margin: 18px 0 26px 0;
+}
+
+.about-me__text {
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #FFFFFF;
+    margin: 0 0 99px 0;
+}
+
+.about-me__link {
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #FFFFFF;
+    margin-right: 20px;
+    text-decoration: none;
+}

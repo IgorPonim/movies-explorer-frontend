@@ -8,32 +8,36 @@ import { Profile } from '../Profile/Profile';
 import { Register } from '../Register/Register';
 import { Login } from '../Login/Login';
 import { Header } from '../Header/Header';
+import { NotFound } from '../NotFound/notFound';
 
 function App() {
   return (
-    <div className="App">
-      <Switch>
-        <Header/>
-        <Route path={'/'} exact>
-          <Main />
-        </Route>
-        <Route path={'/movies'} exact>
-          <Movies />
-        </Route>
-        <Route path={'/saved-movies'} exact>
-          <SavedMovies />
-        </Route>
-        <Route path={'/profile'} exact>
-          <Profile />
-        </Route>
-        <Route path={'/signin'} exact>
-          <Register />
-        </Route>
-        <Route path={'/signup'} exact>
-          <Login />
-        </Route>
-      </Switch>
-    </div>
+
+    <Switch>
+
+      <Route path={'/'} exact>
+        <Main />
+      </Route>
+      <Route path={'/movies'} exact>
+        <Movies />
+      </Route>
+      <Route path={'/saved-movies'} exact>
+        <SavedMovies />
+      </Route>
+      <Route path={'/profile'} exact>
+        <Profile />
+      </Route>
+      <Route path={'/signup'} exact>
+        <Register />
+      </Route>
+      <Route path={'/signin'} exact>
+        <Login />
+      </Route>
+      <Route path={'*'}>
+        <NotFound />
+      </Route>
+    </Switch>
+
   );
 }
 

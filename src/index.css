@@ -3,4 +3,10 @@
 
 body {
   font-family: 'Inter', Arial, sans-serif;
+  color: #fff;
+
+}
+
+*{
+  /* outline: red 1px solid; */
 }

@@ -1,0 +1,123 @@
+.about-project {
+    background-color: #202020;
+}
+
+.about-project__title {
+    margin: 110px auto 23px auto;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 27px;
+    /* identical to box height */
+    padding: 0 0 23px 0;
+    width: 90%;
+    letter-spacing: -0.04em;
+    border-bottom: 1px solid #DADADA;
+    color: #FFFFFF;
+}
+
+.about-project__container {
+
+    display: grid;
+    grid-template-columns: 46.74% 1fr;
+    grid-template-rows: auto;
+    padding: 0px 70px;
+    margin-top: 70px;
+    box-sizing: border-box;
+    grid-column-gap: 40px;
+}
+
+.about-project__subtitle {
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+    margin: 0;
+    padding: 0;
+    color: #FFFFFF;
+}
+
+.about-project__text {
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 26px;
+    margin-bottom: 110px;
+
+    color: #FFFFFF;
+}
+
+.about-project__longrid {
+    padding: 0 70px;
+    height: 72px;
+    display: grid;
+    grid-template-columns: 20% 80%;
+    padding-bottom: 110px;
+}
+
+.about-project__backend {
+    background-color: #3DDC84;
+    min-height: 36px;
+    margin: 0;
+    font-size: 14px;
+    line-height: 36px;
+    text-align: center;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.about-project__frontend {
+    background-color: #303030;
+    min-height: 36px;
+    margin: 0;
+    font-size: 14px;
+    line-height: 36px;
+    text-align: center;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+
+}
+
+.about-project__backend:nth-child(3) {
+    background-color: none;
+    background: none;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #8B8B8B;
+}
+
+.about-project__frontend:last-child {
+    background-color: none;
+    background: none;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #8B8B8B;
+
+}

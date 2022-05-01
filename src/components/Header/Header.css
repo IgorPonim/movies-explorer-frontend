@@ -1,0 +1,72 @@
+.header {
+    background-color: #073042;
+    padding: 19px 70px 19px 70px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header__links {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header__link {
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    text-align: right;
+    color: #FFFFFF;
+    text-decoration: none;
+    margin: 0 30px 0 0;
+    display: inline;
+}
+
+.header__button {
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    /* identical to box height, or 133% */
+    width: 76px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #3DDC84;
+    border-radius: 3px;
+    color: #000000;
+    text-decoration: none;
+    text-align: center;
+}
+
+.header__account {
+    display: flex;
+    width: 100px;
+    height: 32px;
+    margin-left: 30px;
+    align-items: center;
+    justify-content: center;
+
+    background: #313131;
+    border-radius: 20px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.header_grey {
+    background-color: #202020;
+}
