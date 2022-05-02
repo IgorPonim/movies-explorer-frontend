@@ -10,7 +10,7 @@
     font-size: 22px;
     line-height: 27px;
     /* identical to box height */
-    padding: 0 0 23px 0;
+    padding: 0 0 23px 7px;
     width: 90%;
     letter-spacing: -0.04em;
     border-bottom: 1px solid #DADADA;
@@ -20,7 +20,7 @@
 .about-project__container {
 
     display: grid;
-    grid-template-columns: 46.74% 1fr;
+    grid-template-columns: 48% 1fr;
     grid-template-rows: auto;
     padding: 0px 70px;
     margin-top: 70px;
@@ -48,7 +48,6 @@
     line-height: 20px;
     margin-top: 26px;
     margin-bottom: 110px;
-
     color: #FFFFFF;
 }
 
@@ -62,7 +61,8 @@
 
 .about-project__backend {
     background-color: #3DDC84;
-    min-height: 36px;
+    min-height: 30px;
+    
     margin: 0;
     font-size: 14px;
     line-height: 36px;
@@ -107,9 +107,10 @@
     line-height: 17px;
     text-align: center;
     color: #8B8B8B;
+    
 }
 
-.about-project__frontend:last-child {
+.about-project__frontend:nth-child(4) {
     background-color: none;
     background: none;
     font-family: 'Inter', Arial, sans-serif;
@@ -119,5 +120,99 @@
     line-height: 17px;
     text-align: center;
     color: #8B8B8B;
+    padding-top: 0.5%;
 
+}
+
+@media screen and (max-width: 768px) {
+
+    .about-project__container {
+        grid-column-gap: 30px;
+        padding: 0 50px 0 50px;
+    }
+
+    .about-project__title {
+        margin: 90px auto 0px auto;
+        padding: 0 0 23px 0px;
+        width: 87%;
+    }
+
+    .about-project__longrid {
+        padding: 0 50px;
+        grid-template-columns: 21% 79%;
+    }
+
+    .about-project__text {
+        margin-bottom: 90px;
+        margin-top: 20px;
+        font-size: 12px;
+    }
+}
+/* 
+------------------------------------ */
+/* --------for 425px------------- */
+
+
+@media screen and (max-width: 425px) {
+    .about-project__title {
+        margin: 70px auto 0px auto;
+        padding: 0 0 27px 0px;
+        width: 90%;
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .about-project__container {
+        display: grid;
+        grid-template-columns: none;
+        padding: 0px 18px;
+        margin-top: 19%;
+    }
+
+    .about-project__subtitle {
+
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .about-project__text {
+        font-size: 11px;
+        line-height: 16px;
+        margin-top: 17px;
+        margin-bottom: 19.8%;
+    }
+
+    .about-project__longrid {
+        padding: 0 18px;
+        height: 72px;
+        display: grid;
+        grid-template-columns: 35% 65%;
+        padding-bottom: 0px;
+    }
+
+    .about-project__backend {
+        min-height: 35px;
+        font-size: 11px;
+        line-height: 13px;
+
+    }
+
+    .about-project__frontend {
+        min-height: 35px;
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .about-project__backend:nth-child(3) {
+        min-height: 35px;
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .about-project__frontend:last-child {
+        min-height: 35px;
+        font-size: 11px;
+        line-height: 13px;
+    }
 }

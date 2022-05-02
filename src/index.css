@@ -5,7 +5,12 @@ body {
   font-family: 'Inter', Arial, sans-serif;
   color: #fff;
 
+ margin: 0 auto;
+ background-color: inherit;
+
 }
+
+
 
 *{
   /* outline: red 1px solid; */

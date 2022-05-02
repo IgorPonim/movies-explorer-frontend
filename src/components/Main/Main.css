@@ -3,10 +3,9 @@
     max-width: 100%;
     min-width: 320px;
     max-height: 100%;
-    
-
     min-width: 320px;
     font-family: 'Inter', Arial, sans-serif;
     margin: auto, auto;
     display: block;
+    margin: 0 auto;
 }

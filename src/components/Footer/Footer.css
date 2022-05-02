@@ -10,13 +10,15 @@
     line-height: 16px;
     text-align: center;
     color: #8B8B8B;
-    margin: 0px 0 0 0;
+    margin: 0px auto;
     padding: 0 0 20px 0;
     border-bottom: 1px solid #424242;
+    width: 90%;
+
 }
 
 .footer__copyright {
-    padding: 20px 70px 20px 70px;
+    padding: 20px 60px 20px 75px;
     display: flex;
     justify-content: space-between;
 }
@@ -31,7 +33,7 @@
 }
 
 .footer__link {
-    font-family: 'Inter';
+    font-family: 'Inter', Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 13px;
@@ -45,4 +47,46 @@
 
 .footer__link:last-child {
     margin-right: 0px;
+}
+
+@media screen and (max-width: 768px) {
+    .footer__copyright {
+        padding: 18px 20px 20px 40px;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .footer__description {
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .footer__links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+
+    .footer__copyright {
+        flex-direction: column-reverse;
+        padding: 30px 105px 20px 105px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .footer__link {
+        font-size: 12px;
+        line-height: 15px;
+        margin-right: 0;
+        margin-bottom: 12px;
+    }
+
+    .footer__year {
+        font-size: 12px;
+        line-height: 15px;
+        margin-top: 16%;
+    }
 }

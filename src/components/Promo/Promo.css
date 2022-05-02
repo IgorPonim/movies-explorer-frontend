@@ -6,21 +6,16 @@
 .promo__background {
     background-color: #073042;
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
     background-image: url('../../images/promo.svg');
     background-repeat: no-repeat;
-    background-position: center;
-    background-size: 320px;
+    background-position: 50% 45%;
+    background-size: 320px 320px;
 }
 
-
-
 .promo__title {
-    margin: 184px auto 224px auto;
+    margin: 200px auto 224px auto;
     padding: 0;
-
     font-family: 'Inter', Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -30,4 +25,33 @@
     text-align: center;
     letter-spacing: -0.04em;
     color: #FFFFFF;
+}
+
+@media screen and (max-width: 768px) {
+
+    .promo__background {
+        padding-top: 120px;
+        background-position: 50% 48%;
+
+    }
+
+    .promo__title {
+        padding-bottom: 120px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .promo__background {
+        padding-top: 0;
+        background-size: 248px;
+        background-position: 50% 33%;
+
+    }
+
+    .promo__title {
+        padding-bottom: 20px;
+        margin-top: 207px;
+        font-size: 31px;
+        line-height: 39px;
+    }
 }
