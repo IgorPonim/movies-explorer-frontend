@@ -9,12 +9,19 @@ export const MoviesCardList = () => {
                     <MoviesCard />
                     <MoviesCard status={true} /><MoviesCard />
                     <MoviesCard />
-                    <MoviesCard status={true} /><MoviesCard />
+                    {/* <MoviesCard status={true} /> */}
+                    {/* <MoviesCard /> */}
+                    {/* <MoviesCard status={true} /> */}
+                    {/* <MoviesCard /> */}
+                    {/* <MoviesCard status={true} />
                     <MoviesCard />
-                    <MoviesCard status={true} />
+                    <MoviesCard /> */}
+
+
+
 
                 </div>
-               
+
             </section>
         </>
     )

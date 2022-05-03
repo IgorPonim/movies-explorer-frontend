@@ -15,7 +15,7 @@ export const SearchForm = () => {
         <>
             <form className="search-form">
                 <fieldset class="search-form__fieldset">
-                    <input placeholder="&#128269;   Фильм" class="search-form__input" type="text" name="keyword" required=""  />
+                    <input placeholder="&#128269;    Фильм" className="search-form__input" type="text" name="keyword" required=""  />
                     <button class="search-form__button" type="submit"></button>
                     <div class="search-form__stick" ></div>
                     <div class="search-form__fieldset2 sign-form__fieldset_for_checkbox">

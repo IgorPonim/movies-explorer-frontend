@@ -1,5 +1,5 @@
 .search-form {
-    padding: 60px 70px 80px;
+    padding: 85px 70px 5%;
     background-color: #202020;
 }
 
@@ -16,7 +16,7 @@
     border-radius: 9px;
     border: 0;
     height: 72px;
-    padding: 0 0 0 22px;
+    padding: 5px 0 0 26px;
     font-size: 13px;
     line-height: 1.31;
     color: #fff;
@@ -29,6 +29,7 @@
     font-size: 18px;
     line-height: 20px;
     color: #8B8B8B;
+    ;
 }
 
 
@@ -59,8 +60,8 @@
 .search-form__fieldset2 {
     padding-top: 7px;
     position: absolute;
-    top: 19px;
-    right: 30px;
+    top: 23px;
+    right: 23px;
     cursor: pointer;
 }
 
@@ -76,17 +77,21 @@
 }
 
 .search-form__checkbox-message {
-    font-size: 14px;
-    line-height: 1.29;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
     margin: 0;
-    margin-left: 12px;
+    margin-left: 15px;
+    margin-right: 5px;
 }
 
 .search-form__switch {
     position: relative;
     display: inline-block;
-    width: 40px;
-    height: 20px;
+    width: 36px;
+    height: 15px;
 }
 
 .search-form__checkbox {
@@ -136,5 +141,65 @@
     right: 226px;
     border-right: 2px solid #424242;
 
+
+}
+
+@media screen and (max-width: 768px) {
+    .search-form {
+        padding: 75px 30px 5%;
+        background-color: #202020;
+    }
+
+    .search-form__button {
+
+        right: 227px;
+        cursor: pointer;
+    }
+
+    .search-form__stick {
+        right: 207px;
+    }
+
+    .search-form__fieldset2 {
+        top: 23px;
+        right: 15px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .search-form {
+        padding: 75px 10px 5%;
+        background-color: #202020;
+    }
+
+    .search-form__stick {
+        display: none;
+    }
+
+    .search-form__button {
+        right: 20px;
+        cursor: pointer;
+    }
+
+    .search-form__fieldset2 {
+
+        position: absolute;
+        top: 112px;
+        right: 70px;
+        cursor: pointer;
+    }
+
+    .search-form__checkbox-message {
+        font-weight: 400;
+        font-size: 11px;
+
+    }
+
+    .search-form__input::placeholder {
+        content: "Фильм";
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+    }
 
 }

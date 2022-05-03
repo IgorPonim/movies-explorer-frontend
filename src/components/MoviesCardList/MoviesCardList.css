@@ -4,16 +4,35 @@
     flex-direction: column;
     background-color: #202020;
     border-top: #424242 1px solid;
-    
+
 }
 
 .movies-card-list__grid {
     display: grid;
     width: 100%;
     grid-column-gap: 24px;
-    grid-row-gap: 30px;
+    grid-row-gap: 21px;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     margin: 0 auto;
 }
 
 
+@media screen and (max-width: 768px) {
+    .movies-card-list {
+        padding: 145px 30px 0;
+    }
+
+    .movies-card-list__grid {
+        grid-row-gap: 15px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .movies-card-list {
+        padding: 140px 10px 0;
+    }
+
+    .movies-card-list__grid {
+        grid-row-gap: 18px;
+    }
+}

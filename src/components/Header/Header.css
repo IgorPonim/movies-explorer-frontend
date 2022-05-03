@@ -6,6 +6,18 @@
 
 }
 
+.header__nav {
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    color: #FFFFFF;
+    text-decoration: none;
+    margin: 0 20px 0 0;
+    display: inline;
+}
+
 .header__links {
     display: flex;
     justify-content: center;
@@ -65,6 +77,96 @@
     line-height: 16px;
 }
 
+.header__burder {
+    background-image: url('../../images/burger-menu.6875e104.svg');
+    display: none;
+    width: 28px;
+    height: 25px;
+    background-color: transparent;
+    color: #fff;
+    background-size: cover;
+    border: none;
+}
+
+.popup {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 159px 0 90px;
+    bottom: 0;
+    background: #202020;
+    z-index: 100;
+    flex-direction: column;
+    visibility: hidden;
+    width: 520px;
+    height: calc(100vh - 248px);
+    display: flex;
+    align-items: center;
+}
+
+.popup_visible {
+    visibility: visible;
+}
+
+.popup__nav {
+    display: inline-block;
+    font-family: 'Inter';
+    font-style: normal;
+    margin: 0;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 0;
+}
+
+.popup__nav:hover {
+    border-bottom: 2px solid #FFF;
+}
+
+
+.popup__accaunt {
+    display: flex;
+    width: 100px;
+    height: 32px;
+    margin-top: 30%;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    background: #313131;
+    border-radius: 20px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.popup__close {
+    background: none;
+    background-repeat: repeat;
+    background-image: none;
+    background-size: auto;
+    border: none;
+    background-image: url('../../images/x.svg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 22.44px;
+    height: 22.44px;
+    padding: 0;
+    position: absolute;
+    right: 22.44px;
+    top: 22.44px;
+    cursor: pointer;
+}
+
 .header_grey {
     background-color: #202020;
 }
@@ -74,6 +176,19 @@
         padding: 18px 30px;
     }
 
+    .header__nav {
+        display: none;
+    }
+
+    .header__account {
+        display: none;
+    }
+
+    .header__burder {
+        display: block;
+        margin-right: 8px;
+        cursor: pointer;
+    }
 }
 
 @media screen and (max-width: 425px) {
@@ -93,5 +208,10 @@
         height: 26px;
         font-size: 10px;
 
+    }
+
+    .header__burder {
+        width: 25px;
+        height: 21px;
     }
 }

@@ -37,11 +37,12 @@
     line-height: 19px;
     text-align: center;
     color: #FFFFFF;
+    margin-top: 5px;
 
 }
 
 .not-found__button {
-    position: fixed;
+    position: absolute;
     background-color: unset;
     color: #4285F4;
     font-weight: 400;
@@ -50,7 +51,36 @@
     border: none;
     margin: 0;
     padding: 0;
-    left: 50% - 42px;
-    bottom: 60px;
+    left: 50% - 40px;
+    bottom: 95px;
     cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .not-found__button {
+
+        bottom: -19px;
+
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .not-found__title {
+
+        font-size: 80px;
+        line-height: 97px;
+    }
+
+    .not-found__text {
+        font-size: 12px;
+        line-height: 15px;
+        margin-top: 10px;
+    }
+
+    .not-found__button {
+        font-size: 12px;
+        line-height: 15px;
+        bottom: -83px;
+
+    }
 }

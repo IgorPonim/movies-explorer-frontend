@@ -5,28 +5,28 @@
     overflow: hidden;
     position: relative;
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
+    height: 77%;
+    margin: 0 auto;
+    overflow: hidden;
+    height: 280px
 }
 
 .movie-card__image {
     width: 100%;
+    max-height: 206px;
     object-fit: cover;
-    height: 282px;
-    position: relative;
-    transition: .2s ease-in-out;
-    display: block;
-    object-position: center;
 }
+
 
 
 .movie-card__description {
     display: grid;
     margin: 0;
-    grid-template-columns: 85% 1fr;
-
-    width: 100%;
-    grid-row-gap: 9px;
+    grid-template-columns: 86% 1fr;
+    grid-template-rows: 71% 1fr;
+    width: 98%;
     align-self: center;
-    padding: 14px 17px 14px 14px;
+    padding: 14px 17px 10px 14px;
 }
 
 
@@ -36,8 +36,6 @@
     height: 30px;
     border: none;
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
     background-color: #222222;
     background-size: 30px;
     background-position: center;
@@ -79,4 +77,29 @@
 
 .movie-card__button_liked {
     background-image: url('.../../../../images/greenbut.svg');
+}
+
+
+
+@media screen and (max-width: 768px) {
+
+    .movie-card__image {
+        width: 100%;
+        max-height: 190px;
+        object-fit: cover;
+    }
+}
+
+@media screen and (max-width: 425px) {
+
+    .movie-card__image {
+        width: 100%;
+        max-height: 170px;
+        object-fit: cover;
+
+    }
+
+    .movie-card {
+        height: 235px
+    }
 }
