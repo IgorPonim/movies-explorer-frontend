@@ -29,9 +29,8 @@
     font-size: 18px;
     line-height: 20px;
     color: #8B8B8B;
-    ;
-}
 
+}
 
 .search-form__button {
     background-image: url('../../images/but.svg');
@@ -57,7 +56,7 @@
 }
 
 
-.search-form__fieldset2 {
+.search-form__area {
     padding-top: 7px;
     position: absolute;
     top: 23px;
@@ -69,7 +68,7 @@
     position: relative;
 }
 
-.sign-form__fieldset_for_checkbox {
+.search-form__fieldset_for_checkbox {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -85,6 +84,7 @@
     margin: 0;
     margin-left: 15px;
     margin-right: 5px;
+    cursor: auto;
 }
 
 .search-form__switch {
@@ -104,7 +104,7 @@
     position: absolute;
     cursor: pointer;
     top: 0;
-    left: 0;
+    left: 0px;
     right: 0;
     bottom: 0;
     background-color: #3DDC84;
@@ -118,21 +118,20 @@
     height: 8px;
     width: 8px;
     right: 6px;
-    bottom: 6px;
+    bottom: 4px;
     border-radius: 50%;
     background-color: white;
     transition: 0.4s;
 }
 
-
-
 .search-form__checkbox:checked+.search-form__slider {
-    background-color: #3DDC84
+    background-color: #57574a;
 }
 
 .search-form__checkbox:checked+.search-form__slider:before {
-    transform: translateX(16px);
+    transform: translateX(-16px);
 }
+
 
 .search-form__stick {
     position: absolute;
@@ -140,8 +139,13 @@
     top: 15px;
     right: 226px;
     border-right: 2px solid #424242;
+}
 
-
+.search-form__borderline {
+    width: 100%;
+    border-bottom: 1px solid #424242;
+    margin: 0;
+    margin-top: 5.7%;
 }
 
 @media screen and (max-width: 768px) {
@@ -150,8 +154,11 @@
         background-color: #202020;
     }
 
-    .search-form__button {
+    .search-form__borderline {
+        margin-top: 15%;
+    }
 
+    .search-form__button {
         right: 227px;
         cursor: pointer;
     }
@@ -160,13 +167,13 @@
         right: 207px;
     }
 
-    .search-form__fieldset2 {
+    .search-form__area {
         top: 23px;
         right: 15px;
     }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 550px) {
     .search-form {
         padding: 75px 10px 5%;
         background-color: #202020;
@@ -175,14 +182,16 @@
     .search-form__stick {
         display: none;
     }
+    .search-form__borderline {
+        margin-top: 35%;
+    }
 
     .search-form__button {
         right: 20px;
         cursor: pointer;
     }
 
-    .search-form__fieldset2 {
-
+    .search-form__area {
         position: absolute;
         top: 112px;
         right: 70px;
@@ -192,7 +201,6 @@
     .search-form__checkbox-message {
         font-weight: 400;
         font-size: 11px;
-
     }
 
     .search-form__input::placeholder {

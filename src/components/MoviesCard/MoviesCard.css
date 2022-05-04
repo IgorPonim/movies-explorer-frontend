@@ -13,7 +13,7 @@
 
 .movie-card__image {
     width: 100%;
-    max-height: 206px;
+    max-height: 200px;
     object-fit: cover;
 }
 
@@ -23,7 +23,7 @@
     display: grid;
     margin: 0;
     grid-template-columns: 86% 1fr;
-    grid-template-rows: 71% 1fr;
+    grid-template-rows: 65% 1fr;
     width: 98%;
     align-self: center;
     padding: 14px 17px 10px 14px;
@@ -44,6 +44,7 @@
     cursor: pointer;
     align-self: center;
     border-radius: 36px;
+    margin-top: 5px;
 }
 
 .movie-card__name {
@@ -101,5 +102,17 @@
 
     .movie-card {
         height: 235px
+    }
+    .movie-card__description {
+        display: grid;
+        margin: 0;
+        grid-template-columns: 83% 1fr;
+        grid-template-rows: 65% 1fr;
+        width: 98%;
+        align-self: center;
+        padding: 14px 17px 10px 14px;
+    }
+    .movie-card__duration {
+        margin-top: -6px;
     }
 }

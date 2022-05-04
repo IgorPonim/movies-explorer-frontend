@@ -17,6 +17,9 @@
     margin: 0 20px 0 0;
     display: inline;
 }
+.header__nav:hover{
+    text-decoration: underline;
+}
 
 .header__links {
     display: flex;
@@ -38,7 +41,9 @@
     margin: 0 30px 0 0;
     display: inline;
 }
-
+.header__link:hover{
+    text-decoration: underline;
+}
 .header__button {
     font-family: 'Inter', Arial, sans-serif;
     font-style: normal;
@@ -55,6 +60,9 @@
     color: #000000;
     text-decoration: none;
     text-align: center;
+}
+.header__button:hover{
+    text-decoration: underline;
 }
 
 .header__account {
@@ -76,6 +84,9 @@
     font-size: 14px;
     line-height: 16px;
 }
+.header__account:hover{
+text-decoration: underline;
+}
 
 .header__burder {
     background-image: url('../../images/burger-menu.6875e104.svg');
@@ -92,7 +103,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    padding: 159px 0 90px;
+    padding: 159px 0 500px;
     bottom: 0;
     background: #202020;
     z-index: 100;
@@ -106,6 +117,7 @@
 
 .popup_visible {
     visibility: visible;
+
 }
 
 .popup__nav {
@@ -123,16 +135,19 @@
     padding: 0;
 }
 
+.popup__nav_border-visibe {
+    border-bottom: 2px solid #FFF;
+}
+
 .popup__nav:hover {
     border-bottom: 2px solid #FFF;
 }
 
-
 .popup__accaunt {
     display: flex;
     width: 100px;
-    height: 32px;
-    margin-top: 30%;
+
+    margin-top: 115.5%;
     align-self: center;
     align-items: center;
     justify-content: center;
@@ -146,7 +161,7 @@
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
-    line-height: 16px;
+    line-height: 32px;
 }
 
 .popup__close {
@@ -158,12 +173,12 @@
     background-image: url('../../images/x.svg');
     background-repeat: no-repeat;
     background-size: 100%;
-    width: 22.44px;
-    height: 22.44px;
+    width: 30px;
+    height: 30px;
     padding: 0;
     position: absolute;
-    right: 22.44px;
-    top: 22.44px;
+    right: 17px;
+    top: 25px;
     cursor: pointer;
 }
 
@@ -172,6 +187,10 @@
 }
 
 @media screen and (max-width: 768px) {
+    .popup {
+        width: 67%;
+    }
+
     .header {
         padding: 18px 30px;
     }
@@ -193,7 +212,7 @@
 
 @media screen and (max-width: 425px) {
     .header {
-        padding: 18px 30px;
+
         padding: 18px 14px;
     }
 
@@ -213,5 +232,27 @@
     .header__burder {
         width: 25px;
         height: 21px;
+    }
+
+    .popup {
+        width: 100%;
+        padding: 144px 0 46px;
+        height: calc(100vh - 160px);
+    }
+
+    .popup__close {
+        top: 15px
+    }
+
+    .popup__nav {
+        margin-bottom: 15px;
+    }
+
+    .popup__accaunt {
+        margin-top: 133%;
+    }
+
+    .popup {
+        padding: 142px 0 500px;
     }
 }

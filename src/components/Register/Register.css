@@ -7,7 +7,7 @@
 }
 
 .register__container {
-    padding: 50px 442px 67px 440px;
+    padding: 50px 0px 67px 0px;
     display: flex;
     flex-direction: column;
     width: 396px;
@@ -46,6 +46,16 @@
     padding-left: 15px;
     margin-bottom: 20px;
     color: #FFFFFF;
+}
+
+
+.register__input:focus {
+    outline: none;
+    border: 1px #7a6f6f solid;
+    margin-top: -2px;
+    position: relative;
+    top: 1px;
+    left: -1px;
 }
 
 .register__input:nth-child(3) {

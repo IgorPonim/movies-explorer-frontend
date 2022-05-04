@@ -20,7 +20,7 @@
 
 .portfolio__links {
     padding: 0;
-    margin: 0 0 190px 0;
+    margin: 0 0 185px 0;
 }
 
 .portfolio__link {
@@ -32,6 +32,10 @@
     list-style: none;
     text-decoration: none;
     color: #FFFFFF;
+}
+
+.portfolio__link:hover {
+    opacity: .9;
 }
 
 @media screen and (max-width: 768px) {
@@ -49,7 +53,7 @@
     }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 575px) {
     .portfolio {
         padding: 0 14px 0 14px;
     }

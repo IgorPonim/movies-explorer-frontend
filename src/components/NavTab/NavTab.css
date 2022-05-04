@@ -26,6 +26,9 @@
     margin: 0;
     padding: 0;
 }
+.navtab__link:hover{
+    opacity: .8;
+}
 
 @media screen and (max-width: 425px) {
     .navtab__menu {

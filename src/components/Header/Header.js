@@ -38,7 +38,7 @@ export const Header = (props) => {
                         <div className={`popup ${popupOpen ? 'popup_visible' : ''}`}>
 
                             <Link to='/'  ><p  className="popup__nav">Главная</p></Link>
-                            <Link to={'/movies'} ><p  className="popup__nav">Фильмы</p></Link>
+                            <Link to={'/movies'} ><p  className="popup__nav popup__nav_border-visibe">Фильмы</p></Link>
                             <Link to={'/saved-movies'}><p  className="popup__nav">Сохраненные фильмы</p></Link>
                             <Link to={'/profile'} className='popup__accaunt '>Аккаунт</Link>
                             <button className="popup__close" onClick={handleClickonCloseButton} />
@@ -53,8 +53,7 @@ export const Header = (props) => {
 
                         </div>
 
-                        {/* <button className="header__links-touch" onClick={openSidebar} />
-                        <Sidebar visible={sidebarVisible} onClose={closeSidebar} /> */}
+                        
                     </Route>
                 </Switch>
             </header>

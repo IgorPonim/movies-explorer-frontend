@@ -13,7 +13,7 @@ export const Register = () => {
             <section className="register">
                 <div className="register__container">
                     <Link to='/'>
-                        <img class="header_logo header_logo_register-position" src="/static/media/logo.6427ffc3dd1ac70c1e165d30d5f6bc3c.svg" alt="лого" />
+                        <img className="header_logo header_logo_register-position" src="/static/media/logo.6427ffc3dd1ac70c1e165d30d5f6bc3c.svg" alt="лого" />
                     </Link>
                     <h2 className="register__title">Добро пожаловать!</h2>
 

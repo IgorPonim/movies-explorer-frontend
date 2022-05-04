@@ -4,7 +4,7 @@ import './Techs.css'
 export const Techs = () => {
     return (
         <>
-            <section className="techs">
+            <section id='2' className="techs">
             <h2 className="techs__main-title">Технологии</h2>
             <div className='techs__container'>
                 <h2 className='techs__title'>7 технологий</h2>

@@ -18,7 +18,7 @@
 }
 
 .footer__copyright {
-    padding: 20px 60px 20px 75px;
+    padding: 23px 65px 20px 70px;
     display: flex;
     justify-content: space-between;
 }
@@ -38,11 +38,14 @@
     font-weight: 400;
     font-size: 13px;
     line-height: 16px;
-
     text-decoration: none;
     text-align: right;
     margin-right: 20px;
     color: #FFFFFF;
+}
+
+.footer__link:hover {
+    opacity: .8;
 }
 
 .footer__link:last-child {
@@ -51,7 +54,7 @@
 
 @media screen and (max-width: 768px) {
     .footer__copyright {
-        padding: 18px 20px 20px 40px;
+        padding: 18px 25px 20px 35px;
         display: flex;
         justify-content: space-between;
     }

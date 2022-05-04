@@ -10,7 +10,7 @@ export const MoviesCard = ({ status }) => {
                     <button className={`movie-card__button ${status ? 'movie-card__button_liked' : ''}`}/>
                         <p className="movie-card__duration">1ч 47м</p>
                 </div>
-                <img class="movie-card__image" alt="Japan"
+                <img className="movie-card__image" alt="Красивая картиночка"
                     src={'https://cq-esports.com/storage/uploads/cosplay-characters/1209685/1.jpg'} />
             </article>
         </>
