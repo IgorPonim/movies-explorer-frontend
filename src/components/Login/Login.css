@@ -1,0 +1,31 @@
+.login {
+    background-color: #202020;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.login__button {
+    outline: none;
+    border: none;
+    height: 45px;
+    background-color: #4285F4;
+    margin: 161px 0 16px 0;
+    cursor: pointer;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+@media screen and (max-width: 425px) {
+    .login__button {
+        
+        margin: 248px 0 15px 0;
+        
+    }
+}

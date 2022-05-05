@@ -1,0 +1,188 @@
+.about-me__grid {
+    padding: 40px 70px 100px 70px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.about-me__description {
+    max-width: 52.5%;
+    margin-right: 49px;
+    display: block;
+}
+
+.about-me__title {
+    margin: 110px auto 23px auto;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 27px;
+    padding: 0 0 23px 0px;
+    width: 89%;
+    letter-spacing: -0.04em;
+    border-bottom: 1px solid #DADADA;
+    color: #FFFFFF;
+}
+
+.about-me__photo {
+    background-image: url('../../images/800px-Shiba_inu_taiki.jpg');
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: none;
+    max-width: 270px;
+    border-radius: 10px;
+    max-height: 352px;
+}
+
+.about-me__name {
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 58px;
+    letter-spacing: -0.04em;
+    margin: 0;
+    padding: 0;
+    color: #FFFFFF;
+}
+
+.about-me__profession {
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    color: #FFFFFF;
+    margin: 18px 0 26px 0;
+}
+
+.about-me__text {
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #FFFFFF;
+    margin: 0 0 99px 0;
+}
+
+.about-me__link {
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #FFFFFF;
+    margin-right: 20px;
+    text-decoration: none;
+}
+.about-me__link:hover{
+    opacity: .8;
+}
+
+@media screen and (max-width: 768px) {
+
+    .about-me__title {
+        margin: 90px auto 0px auto;
+        font-family: 'Inter', Arial, sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 27px;
+        width: 86%;
+    }
+
+    .about-me__grid {
+        padding: 63px 50px 91px 50px;
+    }
+
+    .about-me__photo {
+        min-width: 250px;
+    }
+
+    .about-me {
+        padding-top: -20px;
+    }
+
+    .about-me__name {
+        font-size: 40px;
+        line-height: 40px;
+    }
+
+    .about-me__text {
+        font-size: 12px;
+        line-height: 18px;
+        margin: 0 0 85px 0;
+    }
+
+    .about-me__profession {
+        font-size: 12px;
+        line-height: 18px;
+        margin: 18px 0 20px 0;
+    }
+
+    .about-me__description {
+        max-width: 364px;
+    }
+
+    
+}
+
+@media screen and (max-width: 575px) {
+    .about-me__title {
+        font-size: 18px;
+        line-height: 22px;
+        letter-spacing: -0.04em;
+        margin: 12% auto auto auto;
+        padding: 0 0 26px 0px;
+        width: 91%;
+    }
+
+    .about-me__grid {
+        flex-direction: column-reverse;
+        padding: 63px 14px 69px 14px;
+
+    }
+
+    .about-me__photo {
+        object-fit: cover;
+        object-position: center;
+        border-radius: 10px;
+        max-width: 100%;
+        height: 352px;
+        margin-bottom: 13.3%;
+    }
+
+    .about-me__name {
+        font-size: 30px;
+        line-height: 36px;
+    }
+
+    .about-me__profession {
+        font-size: 11px;
+        line-height: 16px;
+    }
+
+   
+
+    .about-me__description {
+        margin-right: 0;
+        max-width: 100%;
+    }
+
+    .about-me__link {
+        margin-right: 25px;
+    }
+}
+
+@media screen and (max-width:565px){
+    .about-me__name {
+        margin-top: 0px;
+    }
+    .about-me__text {
+        font-size: 11px;
+line-height: 16px;
+margin-bottom: 40px;
+    }
+}

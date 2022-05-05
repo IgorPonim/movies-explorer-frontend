@@ -1,0 +1,19 @@
+@import url('./vendor/normalize.css');
+@import url('./vendor/Fonts/fonts.css');
+
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  color: #fff;
+
+ margin: 0 auto;
+ background-color: inherit;
+background-color: 
+#202020;
+
+}
+
+
+
+*{
+  /* outline: red 1px solid; */
+}
