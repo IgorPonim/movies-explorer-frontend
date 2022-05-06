@@ -12,7 +12,7 @@ export const SavedMovies = () => {
             <Header className='header_grey' />
             <SearchForm />
             <MoviesCardList />
-            <ButtonContainer show={false} />
+          
             <Footer />
         </>
     )

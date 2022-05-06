@@ -31,7 +31,7 @@
 
 
 .movie-card__button {
-    background-image: url('.../../../../images/Безымянный.png');
+   
     width: 30px;
     height: 30px;
     border: none;
@@ -77,7 +77,7 @@
 }
 
 .movie-card__button_liked {
-    background-image: url('.../../../../images/greenbut.svg');
+   
 }
 
 

@@ -9,15 +9,20 @@ import { Register } from '../Register/Register';
 import { Login } from '../Login/Login';
 import { Header } from '../Header/Header';
 import { NotFound } from '../NotFound/notFound';
+import { useEffect, useState } from 'react';
+import { moviesApi } from '../../utils/MoviesApi';
 
 function App() {
+
+
+
   return (
     <Switch>
       <Route path={'/'} exact>
         <Main />
       </Route>
       <Route path={'/movies'} exact>
-        <Movies />
+        <Movies  />
       </Route>
       <Route path={'/saved-movies'} exact>
         <SavedMovies />

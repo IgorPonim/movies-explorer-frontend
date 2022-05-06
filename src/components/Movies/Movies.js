@@ -15,7 +15,7 @@ export const Movies = () => {
             <SearchForm />
             <Preloader isOpen={false} />
             <MoviesCardList />
-            <ButtonContainer show={true} />
+            
             <Footer />
         </>
     )
