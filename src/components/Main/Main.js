@@ -1,3 +1,5 @@
+import { useContext } from "react"
+import { CurrentUserContext } from "../../contexts/CurrentUserContext"
 import { AboutMe } from "../AboutMe/AboutMe"
 import { AboutProject } from "../AboutProject/AboutProject"
 import { Footer } from "../Footer/Footer"
@@ -9,6 +11,8 @@ import { Techs } from "../Techs/Techs"
 import './Main.css'
 
 export const Main = () => {
+
+
     return (
         <main className="main">
             <Header />

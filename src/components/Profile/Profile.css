@@ -22,7 +22,7 @@
 
 .profile__input_container {
     width: 100%;
-    margin-bottom: 211px;
+    margin-bottom: 35px;
 }
 
 .profile__input_area {
@@ -106,7 +106,7 @@
     }
 
     .profile__input_container {
-        margin-bottom: 202px;
+        margin-bottom: 30px;
     }
 }
 
@@ -125,7 +125,7 @@
     }
 
     .profile__input_container {
-        margin-bottom: 370px;
+        margin-bottom: 30px;
     }
 
     .profile__button {

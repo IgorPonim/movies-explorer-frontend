@@ -77,7 +77,7 @@ export const MoviesCardList = () => {
     const [filteredMovies, setFilteredMovies] = useState([])
 
 
-// короче сконструлил такую функцию, я человек неопытный делаю как умею )))
+// короче сконструлил такую функцию дл поиска, я человек неопытный делаю как умею )))
     function search({ searchMessage, checkboxStatus }) {
 
         const regex = new RegExp(searchMessage)

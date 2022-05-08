@@ -12,10 +12,8 @@ export const Movies = () => {
     return (
         <>
             <Header className='header_grey' />
-           
             <Preloader isOpen={false} />
             <MoviesCardList />
-            
             <Footer />
         </>
     )

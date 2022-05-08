@@ -27,7 +27,7 @@ export const SearchForm = ({ submitHandler }) => {
         <>
             <form onSubmit={sumbitSearch} className="search-form">
                 <fieldset className="search-form__fieldset">
-                    <input onChange={onChange} placeholder="&#128269;    Фильм" className="search-form__input" type="text" name="keyword" required="" />
+                    <input onChange={onChange} placeholder="&#128269;    Фильм" required className="search-form__input" type="text" name="keyword"  minLength={1} />
                     <button className="search-form__button" type="submit"></button>
                     <div className="search-form__stick" ></div>
                     <div className="search-form__area search-form__fieldset_for_checkbox">
