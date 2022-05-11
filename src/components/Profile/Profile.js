@@ -53,7 +53,7 @@ export const Profile = ({ changeInfo, handleLogOut }) => {
                             <label className="profile__label">E-mail</label>
                             <input value={email || ""} onChange={handleChange} className="profile__input" id="email" name="profile-email" type="email" />
                         </div>
-                        <button className="profile__button">Редактировать</button>
+                        <button onClick={handleSubmit} className="profile__button">Редактировать</button>
                     </form >
 
                     <div className="profile__button-container">

@@ -1,27 +1,17 @@
 import './MoviesCardList.css'
 import { MoviesCard } from '../MoviesCard/MoviesCard'
-import { useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { moviesApi } from '../../utils/MoviesApi'
 import '../ButtonContainer/ButtonContainer.css'
 import { SearchForm } from '../SearchForm/searchForm'
+import { LikedMoviesContext } from '../../contexts/LikedMoviesContext'
+import { MoviesContext } from '../../contexts/MoviesContext'
+
 export const MoviesCardList = () => {
 
-    //вначале загружу массив карточек
+
     const [movies, setMovies] = useState([])
 
-    useEffect(() => {
-        Promise.all([
-            moviesApi.getInitialMovies()
-        ])
-            .then(([cards]) => {
-                cards.sort(() => 0.5 - Math.random())
-                setMovies(cards)
-            })
-
-            .catch((err) => {
-                console.log(err);
-            })
-    }, []);
 
     //повешу слушатель на размер окошка
     const [size, setSize] = useState(0)
@@ -75,32 +65,91 @@ export const MoviesCardList = () => {
 
     const [errorMessage, setErrorMEsage] = useState('')
     const [filteredMovies, setFilteredMovies] = useState([])
+    const [validateError, setvalidateError] = useState('')
 
-
-// короче сконструлил такую функцию дл поиска, я человек неопытный делаю как умею )))
+    // короче сконструлил такую функцию дл поиска, я человек неопытный делаю как умею )))
     function search({ searchMessage, checkboxStatus }) {
 
         const regex = new RegExp(searchMessage)
+
+        const loadedMovies = JSON.parse(localStorage.getItem('movies'));
         let res = []
-        res = movies
+        res = loadedMovies
             .filter(({ nameRU }) => regex.test(nameRU))
             .filter(({ duration }) => checkboxStatus ? duration < 40 : <empty />)
 
+
         setFilteredMovies(res)
         if (res.length === 0) { setErrorMEsage('Ничего не найдено 😢') }
+
     }
+
+    const { LikedMovies, updateLikedMovies } = useContext(LikedMoviesContext)
+
+    //лайкаем или удаляем 
+    const onLikeMovie = useCallback((data) => {
+        return () => {
+            const isLikedMovie = LikedMovies.find(({ movieId }) => movieId === data.id)
+            if (isLikedMovie) {
+                moviesApi.removeMovie(isLikedMovie._id)
+                    .then(() => {
+                        updateLikedMovies(LikedMovies.filter(({ _id }) => _id !== isLikedMovie._id))
+                    })
+            } else {
+                console.log(isLikedMovie)
+                moviesApi.createMovie(data).then((res) => {
+                    updateLikedMovies([...LikedMovies, res]);
+
+                })
+            }
+        }
+    }, [LikedMovies, updateLikedMovies])
+
+    // function handleMovieSave(movie) {
+    //     const movieId = movie.id;
+    //     const {
+    //       country,
+    //       director,
+    //       duration,
+    //       year,
+    //       description,
+    //       nameRU,
+    //       nameEN,
+    //       image,
+    //       trailer,
+    //       thumbnail,
+    //     } = movie;
+
+    //     moviesApi
+    //     .createMovie({
+    //         movieId,
+    //         image,
+    //         thumbnail,
+    //         trailer,
+    //         country,
+    //         director,
+    //         duration,
+    //         year,
+    //         description,
+    //         nameRU,
+    //         nameEN,
+    //       })
+    //       .then((data) => setMovies([...movies, data]))
+    //       .catch((err) =>
+    //         console.log(err)
+    //       );
+    //   }
 
 
     return (
         <>
-            <SearchForm submitHandler={search} />
+            <SearchForm errorMes={validateError} submitHandler={search} />
             <section className="movies-card-list">
                 <div className="movies-card-list__grid">
 
                     {hideButton = filteredMovies.map((el) => {
-                        return <MoviesCard movie={el} key={el.id} isSaved={false} isLiked={false} imageUrl={"https://api.nomoreparties.co" + el.image.url} />
+                        return <MoviesCard onlikeClick={onLikeMovie(el)} movie={el} key={el.id} isSaved={false} isLiked={LikedMovies.find(({ movieId }) => movieId === el.id)} imageSrc={"https://api.nomoreparties.co" + el.image.url} />
                     }).slice(0, moviesCount + (pageCount * newPage))}
-
 
                 </div>
                 <div className='movies-card-list__button-container'>

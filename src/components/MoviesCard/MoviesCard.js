@@ -3,7 +3,7 @@ import DeleteMovie from '../../images/but1Delete.svg'
 import Liked from '../../images/but2Save.svg'
 import EmptyLike from '../../images/but3Neitral.svg'
 
-export const MoviesCard = ({ isSaved, isLiked, movie, imageUrl }) => {
+export const MoviesCard = ({ isSaved, isLiked, movie, imageSrc, onlikeClick }) => {
 
     //перевожу минуты в часы
     function getTimeFromMins(mins) {
@@ -14,12 +14,19 @@ export const MoviesCard = ({ isSaved, isLiked, movie, imageUrl }) => {
 
     const { nameRU, duration, trailerLink } = movie || <></>
 
+    function handlelikeClick (ev) {
+        ev.preventDefault();
+        onlikeClick()
+        
+    }
+
+
     return (
         <>
             <article className='movie-card'>
                 <div className='movie-card__description'>
                     <h2 className='movie-card__name'>{nameRU}</h2>
-                    <button className='movie-card__button' >
+                    <button onClick={handlelikeClick} className='movie-card__button' >
 
                         {isSaved
                             ? <img className='movie-card__delete' src={DeleteMovie} alt='удалить' />
@@ -32,9 +39,9 @@ export const MoviesCard = ({ isSaved, isLiked, movie, imageUrl }) => {
                 </div>
 
                 <a rel='noreferrer' href={trailerLink} target='_blank'>
-                    <img src={imageUrl} className='movie-card__image' alt='Красивая картиночка' />
+                    <img src={imageSrc} className='movie-card__image' alt='Красивая картиночка' />
                 </a>
-
+               
             </article>
         </>
     )

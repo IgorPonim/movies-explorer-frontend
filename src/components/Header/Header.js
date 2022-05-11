@@ -33,10 +33,10 @@ export const Header = (props) => {
                         <Link to='/' ><img className="header_logo" src={logo} alt="лого"></img></Link>
                         <div className="header__links">
 
-                            {currentUser && (
+                            {currentUser.name && (
 
                                 <>
-                                <h1>{currentUser.email}</h1>
+
                                     <Link to={'/movies'} className='header__nav'>Фильмы</Link>
                                     <Link to={'/saved-movies'} className='header__nav'>Сохраненные фильмы</Link>
                                     <Link to={'/profile'} className='header__account header__account_green'>Аккаунт</Link>
@@ -52,7 +52,7 @@ export const Header = (props) => {
                                 </>
 
                             )}
-                            {!currentUser && (
+                            {!currentUser.name && (
                                 <>
                                     <Link to={'/signup'} className='header__link'>Регистрация</Link>
                                     <Link to={'/signin'} className='header__button'>Войти</Link>

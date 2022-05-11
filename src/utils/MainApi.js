@@ -89,21 +89,41 @@ export const getUserInfo = () => {
     });
 }
 
-
-export const logout = () => {
-  return fetch(`${BASE_URL}/logout`, {
+export const updateUserInfo = (email, name) => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'PATCH',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
     credentials: 'include',
+    body: JSON.stringify({ email, name })
   })
-  .then((res) => {
-    
-    if (!res.ok) {
-      throw new Error('Logout Error');
-    }
+    .then((res) => {
 
-    return res.json();
-  });
+      if (!res.ok) {
+        throw new Error('Logout Error');
+      }
+
+      return res.json();
+    });
+}
+
+export const logout = () => {
+  return fetch(`${BASE_URL}/logout`, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+
+  })
+    .then((res) => {
+
+      if (!res.ok) {
+        throw new Error('Logout Error');
+      }
+
+      return res.json();
+    });
 };

@@ -15,6 +15,10 @@ import * as MainApi from '../../utils/MainApi.js'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import InfoToolTip from '../InfoToolTip/InfoToolTip';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js'
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import React from 'react';
+import { MoviesContext } from '../../contexts/MoviesContext';
+import { LikedMoviesContext } from '../../contexts/LikedMoviesContext';
 
 
 
@@ -25,11 +29,12 @@ function App() {
   const [InfoToolStatus, setInfoToolStatus] = useState(false)
   const [loggedIn, setloggedIn] = useState(false)
 
-
+  const history = useHistory();
 
   function showToolTip() {
     setInfoToolOpen(true)
   }
+
 
 
   function handleRegister(email, password, name) {
@@ -50,9 +55,7 @@ function App() {
   function handleLogin(email, password) {
     MainApi.authorize(email, password)
       .then((res) => {
-
         setloggedIn(true)
-        history.push('/')
       })
       .catch((err) => {
         console.log(err)
@@ -60,34 +63,84 @@ function App() {
         setInfoToolStatus(false)
       })
   }
-  const history = useHistory();
+
+  //вначале загружу массив карточек
+  const [movies, setMovies] = useState([])
+  const [LikedMovies, setLikedMovies] = useState([]);
+  const [loadingMovies, setLoadingMovies] = useState(false)
+
+  useEffect(() => {
+    if (loggedIn) {
+      MainApi.getUserInfo()
+        .then((res) => {
+          if (res) {
+            setloggedIn(true);
+            setCurrentUser(res)
+            history.push('/movies')
+          } else {
+            setloggedIn(false);
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        });
+
+      const localMovies = localStorage.getItem('movies');
+
+      if (localMovies) {
+        setMovies(JSON.parse(localMovies));
+      } else {
+        moviesApi.getInitialMovies()
+          .then(data => {
+            localStorage.setItem('movies', JSON.stringify(data));
+            setMovies(data);
+          })
+      }
+
+      setLoadingMovies(true);
+
+      moviesApi.getSavedMovies()
+        .then((data) => {
+          setLikedMovies(data);
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+        .finally(() => {
+          setLoadingMovies(false)
+        })
+    }
+
+  }, [loggedIn, history])
 
 
   const [currentUser, setCurrentUser] = useState({})
 
-  useEffect(() => {
-    MainApi.getUserInfo()
-      .then((res) => {
-        if (res) {
-          setloggedIn(true);
-          setCurrentUser(res)
 
-        } else {
-          setloggedIn(false);
-        }
-      })
-      .catch((error) => {
-        console.log(error)
-      });
 
-  }, [])
-
-function handleLogout(){
+  function handleLogout() {
 
     MainApi.logout()
       .then(() => {
+
         setloggedIn(false);
         history.push('/')
+        setCurrentUser({})
+      })
+      .catch((err) => {
+        setInfoToolOpen(true)
+        setInfoToolStatus(false)
+        console.log(err);
+      })
+  }
+
+  function handleUpdateUserInfo(email, name) {
+
+    MainApi.updateUserInfo(email, name)
+      .then(() => {
+        setInfoToolOpen(true)
+        setInfoToolStatus(true)
+
       })
       .catch((err) => {
         setInfoToolOpen(true)
@@ -97,34 +150,44 @@ function handleLogout(){
   }
 
 
+
+
+
+
+
+
   return (
     <div className='page'>
       < CurrentUserContext.Provider value={currentUser}>
-        <Switch>
-          <Route path={'/'} exact>
-            <Main />
-          </Route>
-          <Route path={'/movies'} exact>
-            <Movies />
-          </Route>
-          <Route path={'/saved-movies'} exact>
-            <SavedMovies />
-          </Route>
-          <Route path={'/profile'} exact>
-            <Profile handleLogOut={handleLogout} />
-          </Route>
-          <Route path={'/signup'} exact>
-            <Register onRegister={handleRegister} />
-          </Route>
-          <Route path={'/signin'} exact>
-            <Login loggedIn={handleLogin} />
-          </Route>
-          <Route path={'*'}>
+        <MoviesContext.Provider value={{movies}}>
+          <LikedMoviesContext.Provider value={{ LikedMovies, updateLikedMovies: setLikedMovies, isLoading: loadingMovies}}>
+            <Switch>
+              <Route path={'/'} exact>
+                <Main />
+              </Route>
+              <ProtectedRoute loggedIn={loggedIn} path={'/movies'} exact>
+                <Movies />
+              </ProtectedRoute>
+              <ProtectedRoute loggedIn={loggedIn} path={'/saved-movies'} exact>
+                <SavedMovies />
+              </ProtectedRoute>
+              <ProtectedRoute loggedIn={loggedIn} path={'/profile'} exact>
+                <Profile changeInfo={handleUpdateUserInfo} handleLogOut={handleLogout} />
+              </ProtectedRoute>
+              <Route path={'/signup'} exact>
+                <Register onRegister={handleRegister} />
+              </Route>
+              <Route path={'/signin'} exact>
+                <Login loggedIn={handleLogin} />
+              </Route>
+              <Route path={'*'}>
 
-            <NotFound />
-          </Route>
-        </Switch>
-        <InfoToolTip isOpen={InfoToolOpen} status={InfoToolStatus} onClose={() => setInfoToolOpen(false)} />
+                <NotFound />
+              </Route>
+            </Switch>
+            <InfoToolTip isOpen={InfoToolOpen} status={InfoToolStatus} onClose={() => setInfoToolOpen(false)} />
+          </LikedMoviesContext.Provider>
+        </MoviesContext.Provider>
       </ CurrentUserContext.Provider >
     </div>
 
