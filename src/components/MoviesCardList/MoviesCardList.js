@@ -5,7 +5,7 @@ import { moviesApi } from '../../utils/MoviesApi'
 import '../ButtonContainer/ButtonContainer.css'
 import { SearchForm } from '../SearchForm/searchForm'
 import { LikedMoviesContext } from '../../contexts/LikedMoviesContext'
-import { MoviesContext } from '../../contexts/MoviesContext'
+
 
 export const MoviesCardList = () => {
 
@@ -67,7 +67,9 @@ export const MoviesCardList = () => {
     const [filteredMovies, setFilteredMovies] = useState([])
     const [validateError, setvalidateError] = useState('')
 
-    // короче сконструлил такую функцию дл поиска, я человек неопытный делаю как умею )))
+
+
+//функция поиска
     function search({ searchMessage, checkboxStatus }) {
 
         const regex = new RegExp(searchMessage)
@@ -84,6 +86,33 @@ export const MoviesCardList = () => {
 
     }
 
+
+    const [localMovies, seLocalMovies] = useState([]);
+    useEffect(() => {
+        const data = localStorage.getItem('movies');
+        const chachedSearchFilters = localStorage.getItem('searchMovies');
+
+        if (data) {
+            seLocalMovies(JSON.parse(data));
+        } else {
+            moviesApi.getInitialMovies()
+              .then(data => {
+                seLocalMovies(data);
+                localStorage.setItem('movies', JSON.stringify(data));
+              });
+        }
+
+        if (chachedSearchFilters) {
+            const form = JSON.parse(chachedSearchFilters);
+
+            // setSearchFilters(form);
+            // setValues(form);
+        }
+    }, []);
+
+
+
+
     const { LikedMovies, updateLikedMovies } = useContext(LikedMoviesContext)
 
     //лайкаем или удаляем 
@@ -96,7 +125,7 @@ export const MoviesCardList = () => {
                         updateLikedMovies(LikedMovies.filter(({ _id }) => _id !== isLikedMovie._id))
                     })
             } else {
-                console.log(isLikedMovie)
+           
                 moviesApi.createMovie(data).then((res) => {
                     updateLikedMovies([...LikedMovies, res]);
 
@@ -105,50 +134,16 @@ export const MoviesCardList = () => {
         }
     }, [LikedMovies, updateLikedMovies])
 
-    // function handleMovieSave(movie) {
-    //     const movieId = movie.id;
-    //     const {
-    //       country,
-    //       director,
-    //       duration,
-    //       year,
-    //       description,
-    //       nameRU,
-    //       nameEN,
-    //       image,
-    //       trailer,
-    //       thumbnail,
-    //     } = movie;
-
-    //     moviesApi
-    //     .createMovie({
-    //         movieId,
-    //         image,
-    //         thumbnail,
-    //         trailer,
-    //         country,
-    //         director,
-    //         duration,
-    //         year,
-    //         description,
-    //         nameRU,
-    //         nameEN,
-    //       })
-    //       .then((data) => setMovies([...movies, data]))
-    //       .catch((err) =>
-    //         console.log(err)
-    //       );
-    //   }
-
 
     return (
         <>
+        
             <SearchForm errorMes={validateError} submitHandler={search} />
             <section className="movies-card-list">
                 <div className="movies-card-list__grid">
 
                     {hideButton = filteredMovies.map((el) => {
-                        return <MoviesCard onlikeClick={onLikeMovie(el)} movie={el} key={el.id} isSaved={false} isLiked={LikedMovies.find(({ movieId }) => movieId === el.id)} imageSrc={"https://api.nomoreparties.co" + el.image.url} />
+                        return <MoviesCard  onlikeClick={onLikeMovie(el)} movie={el} key={el.id} isSaved={false} isLiked={LikedMovies.find(({ movieId }) => movieId === el.id)} imageSrc={"https://api.nomoreparties.co" + el.image.url} />
                     }).slice(0, moviesCount + (pageCount * newPage))}
 
                 </div>

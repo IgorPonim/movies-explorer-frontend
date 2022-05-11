@@ -1,8 +1,8 @@
 GET  https://api.nomoreparties.co/beatfilm-movies 
 Content-Type: 'application/json'
-
+##########
 //показать всех
-GET http://localhost:3000/movies
+GET https://api.diploma.iigorevich.nomoredomains.work/movies
 Accept: application/json,
 Content-Type: application/json
 Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjYxMGM2NTBjMjlhNWIwZWNiNmU0YTciLCJpYXQiOjE2NTA1MjczNDZ9.T609KCFuEe56bZxq8l8l35ZWRii9NcjG7FZLXd9H0ts; Max-Age=5184; Path=/; Expires=Thu, 21 Apr 2022 09:15:30 GMT; HttpOnly; Secure; SameSite=None

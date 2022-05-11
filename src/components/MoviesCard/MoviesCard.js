@@ -2,9 +2,13 @@ import './MoviesCard.css'
 import DeleteMovie from '../../images/but1Delete.svg'
 import Liked from '../../images/but2Save.svg'
 import EmptyLike from '../../images/but3Neitral.svg'
+import { useContext } from 'react'
+import { CurrentUserContext } from '../../contexts/CurrentUserContext'
+
 
 export const MoviesCard = ({ isSaved, isLiked, movie, imageSrc, onlikeClick }) => {
 
+    const currentUser = useContext(CurrentUserContext)
     //перевожу минуты в часы
     function getTimeFromMins(mins) {
         let hours = Math.trunc(mins / 60);
@@ -20,10 +24,14 @@ export const MoviesCard = ({ isSaved, isLiked, movie, imageSrc, onlikeClick }) =
         
     }
 
+    // const isOwn = movie.owner === currentUser._id;
+    // const className = (
+    //     `movie-card ${isOwn ? 'movie-card_visible' : 'element__delete_hidden'}`
+    // );
 
     return (
         <>
-            <article className='movie-card'>
+            <article className='movie-card '>
                 <div className='movie-card__description'>
                     <h2 className='movie-card__name'>{nameRU}</h2>
                     <button onClick={handlelikeClick} className='movie-card__button' >

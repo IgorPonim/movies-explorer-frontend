@@ -13,15 +13,17 @@ class Api {
         else return Promise.reject(`Ошибка ${res.status}`);
     }
 
-    getSavedMovies() {
-        return fetch(this._address + '/movies', {
+    getSavedMovies =()=> {
+        return fetch('https://api.diploma.iigorevich.nomoredomains.work/movies', {
             headers: this._headers,
-            credentials: this._credentials
+            method: 'GET',
+            credentials: 'include',
         }).then(this._checkResponse)
     }
 
 
     createMovie({ id, country, director, duration, year, description, image, nameRU, nameEN, trailerLink, thumbnail }) {
+        const imageUrl = 'https://api.nomoreparties.co' + image.url;
        
         return fetch('https://api.diploma.iigorevich.nomoredomains.work/movies', {
             method: 'POST',
@@ -31,15 +33,15 @@ class Api {
             },
             credentials: 'include',
             body: JSON.stringify({
-                country,
+                country: country || 'Не указано',
                 director,
                 duration,
                 year,
-                description,
+                description: description || 'No description',
                 nameRU: nameRU || nameEN,
                 nameEN: nameEN || nameRU,
-                image: 'https://st2.depositphotos.com/1064024/10769/i/600/depositphotos_107694484-stock-photo-little-boy.jpg',
-                thumbnail: thumbnail || 'https://st2.depositphotos.com/1064024/10769/i/600/depositphotos_107694484-stock-photo-little-boy.jpg',
+                image: imageUrl,
+                thumbnail: thumbnail || imageUrl,
                 trailerLink,
                 movieId: id,
             })

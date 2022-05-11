@@ -17,7 +17,7 @@ import InfoToolTip from '../InfoToolTip/InfoToolTip';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import React from 'react';
-import { MoviesContext } from '../../contexts/MoviesContext';
+
 import { LikedMoviesContext } from '../../contexts/LikedMoviesContext';
 
 
@@ -85,17 +85,6 @@ function App() {
           console.log(error)
         });
 
-      const localMovies = localStorage.getItem('movies');
-
-      if (localMovies) {
-        setMovies(JSON.parse(localMovies));
-      } else {
-        moviesApi.getInitialMovies()
-          .then(data => {
-            localStorage.setItem('movies', JSON.stringify(data));
-            setMovies(data);
-          })
-      }
 
       setLoadingMovies(true);
 
@@ -119,13 +108,15 @@ function App() {
 
 
   function handleLogout() {
-
     MainApi.logout()
       .then(() => {
-
         setloggedIn(false);
-        history.push('/')
         setCurrentUser({})
+        history.push('/')
+        localStorage.clear('movies');
+        localStorage.clear('searchMyMovies');
+        localStorage.clear('searchMovies');
+
       })
       .catch((err) => {
         setInfoToolOpen(true)
@@ -135,7 +126,6 @@ function App() {
   }
 
   function handleUpdateUserInfo(email, name) {
-
     MainApi.updateUserInfo(email, name)
       .then(() => {
         setInfoToolOpen(true)
@@ -159,35 +149,35 @@ function App() {
   return (
     <div className='page'>
       < CurrentUserContext.Provider value={currentUser}>
-        <MoviesContext.Provider value={{movies}}>
-          <LikedMoviesContext.Provider value={{ LikedMovies, updateLikedMovies: setLikedMovies, isLoading: loadingMovies}}>
-            <Switch>
-              <Route path={'/'} exact>
-                <Main />
-              </Route>
-              <ProtectedRoute loggedIn={loggedIn} path={'/movies'} exact>
-                <Movies />
-              </ProtectedRoute>
-              <ProtectedRoute loggedIn={loggedIn} path={'/saved-movies'} exact>
-                <SavedMovies />
-              </ProtectedRoute>
-              <ProtectedRoute loggedIn={loggedIn} path={'/profile'} exact>
-                <Profile changeInfo={handleUpdateUserInfo} handleLogOut={handleLogout} />
-              </ProtectedRoute>
-              <Route path={'/signup'} exact>
-                <Register onRegister={handleRegister} />
-              </Route>
-              <Route path={'/signin'} exact>
-                <Login loggedIn={handleLogin} />
-              </Route>
-              <Route path={'*'}>
 
-                <NotFound />
-              </Route>
-            </Switch>
-            <InfoToolTip isOpen={InfoToolOpen} status={InfoToolStatus} onClose={() => setInfoToolOpen(false)} />
-          </LikedMoviesContext.Provider>
-        </MoviesContext.Provider>
+        <LikedMoviesContext.Provider value={{ LikedMovies, updateLikedMovies: setLikedMovies, isLoading: loadingMovies }}>
+          <Switch>
+            <Route path={'/'} exact>
+              <Main />
+            </Route>
+            <ProtectedRoute loggedIn={loggedIn} path={'/movies'} exact>
+              <Movies />
+            </ProtectedRoute>
+            <ProtectedRoute loggedIn={loggedIn} path={'/saved-movies'} exact>
+              <SavedMovies />
+            </ProtectedRoute>
+            <ProtectedRoute loggedIn={loggedIn} path={'/profile'} exact>
+              <Profile changeInfo={handleUpdateUserInfo} handleLogOut={handleLogout} />
+            </ProtectedRoute>
+            <Route path={'/signup'} exact>
+              <Register onRegister={handleRegister} />
+            </Route>
+            <Route path={'/signin'} exact>
+              <Login loggedIn={handleLogin} />
+            </Route>
+            <Route path={'*'}>
+
+              <NotFound />
+            </Route>
+          </Switch>
+          <InfoToolTip isOpen={InfoToolOpen} status={InfoToolStatus} onClose={() => setInfoToolOpen(false)} />
+        </LikedMoviesContext.Provider>
+
       </ CurrentUserContext.Provider >
     </div>
 
