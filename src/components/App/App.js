@@ -37,7 +37,7 @@ function App() {
 
 
 
-  function handleRegister(email, password, name) {
+  function handleRegister({email, password, name}) {
     MainApi.register(email, password, name)
       .then(() => {
         console.log('успешно')
@@ -127,7 +127,8 @@ function App() {
       })
   }
 
-  function handleUpdateUserInfo(email, name) {
+  function handleUpdateUserInfo({email, name}) {
+    console.log({email, name})
     MainApi.updateUserInfo(email, name)
       .then(() => {
         setInfoToolOpen(true)

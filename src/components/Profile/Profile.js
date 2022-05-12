@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react"
 import { CurrentUserContext } from "../../contexts/CurrentUserContext"
 import React from 'react'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useFormWithValidation } from "../FormsWithValidation/FormsWithValidation"
 
 export const Profile = ({ changeInfo, handleLogOut }) => {
 
@@ -16,18 +17,19 @@ export const Profile = ({ changeInfo, handleLogOut }) => {
 
 
 
-    function handleChange(ev) {
-        if (ev.target.name === 'profile-email') {
-            setEmail(ev.target.value)
-        }
-        else if (ev.target.name === 'profile-name') {
-            setName(ev.target.value)
-        }
-    }
+    // function handleChange(ev) {
+    //     if (ev.target.name === 'profile-email') {
+    //         setEmail(ev.target.value)
+    //     }
+    //     else if (ev.target.name === 'profile-name') {
+    //         setName(ev.target.value)
+    //     }
+    // }
+
 
     function handleSubmit(ev) {
         ev.preventDefault()
-        changeInfo(email, name)
+        changeInfo(values)
     }
 
     useEffect(() => {
@@ -35,6 +37,17 @@ export const Profile = ({ changeInfo, handleLogOut }) => {
         setName((currentUser.name))
     }, [currentUser, history])
 
+
+
+    const { values, handleChange, errors, isValid, resetForm } =
+        useFormWithValidation();
+
+    useEffect(() => {
+        currentUser && resetForm({
+            name: currentUser.name,
+            email: currentUser.email
+        });
+    }, [currentUser, resetForm])
 
     return (
         <>
@@ -45,15 +58,24 @@ export const Profile = ({ changeInfo, handleLogOut }) => {
 
                     <form onSubmit={handleSubmit} className="profile__input_container">
                         <div className="profile__input_area">
+
                             <label className="profile__label">Имя</label>
-                            <input value={name || ""} onChange={handleChange} className="profile__input" id="name" name="profile-name" type="text" />
+                            <input onChange={handleChange} className="profile__input" minLength={3} maxLength={30} value={values.name || ""} id="name" name="name" type="text" required />
+
                         </div>
+                        <span className='validation-error'>{errors.name}</span>
+
+
                         <div className="profile__line"></div>
                         <div className="profile__input_area">
+
                             <label className="profile__label">E-mail</label>
-                            <input value={email || ""} onChange={handleChange} className="profile__input" id="email" name="profile-email" type="email" />
+                            <input onChange={handleChange} className="profile__input" minLength={2} maxLength={30} value={values.email || ""} id="email" name="email" type="email" required />
                         </div>
-                        <button onClick={handleSubmit} className="profile__button">Редактировать</button>
+
+                        <span className='validation-error'>{errors.email}</span>
+
+                        <button onClick={handleSubmit} disabled={!isValid} className="profile__button">Редактировать</button>
                     </form >
 
                     <div className="profile__button-container">

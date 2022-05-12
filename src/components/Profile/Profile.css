@@ -45,7 +45,7 @@
     border: none;
     color: #fff;
     width: 100%;
-    height: 70%;
+    
     padding: 0;
     margin: 0 ;
     font-weight: 400;
@@ -57,7 +57,7 @@
 .profile__button_red {
     font-weight: 500;
     color: #EE3465;
-    margin: 16px 0 0;
+    margin: 0px 0 0;
     font-family: 'Inter', Arial, sans-serif;
     text-decoration: none;
 }
