@@ -11,7 +11,7 @@
     outline: none;
     border: none;
     height: 45px;
-    background-color: #4285F4;
+    background-color: #ffffff;
     margin: 161px 0 16px 0;
     cursor: pointer;
     font-family: 'Inter', Arial, sans-serif;
@@ -19,13 +19,35 @@
     font-weight: 500;
     font-size: 14px;
     text-align: center;
-    color: #FFFFFF;
+    color: black;
+}
+
+
+.login__button_blue {
+    color: #fff;
+    background-color: #4285F4;
+}
+
+.login__button_blue:hover {
+    outline: 1px solid gold;
+}
+
+.validation-error {
+    margin: 0;
+    padding: 0;
+    font-size: 10px;
+    line-height: 12px;
+    height: 20px;
+    color: #EE3465;
+    display: inline-block;
+    margin-left: 5px;
+
 }
 
 @media screen and (max-width: 425px) {
     .login__button {
-        
+
         margin: 248px 0 15px 0;
-        
+
     }
 }

@@ -9,9 +9,7 @@ import { LikedMoviesContext } from '../../contexts/LikedMoviesContext'
 
 export const MoviesCardList = () => {
 
-
     const [movies, setMovies] = useState([])
-
 
     //повешу слушатель на размер окошка
     const [size, setSize] = useState(0)
@@ -46,7 +44,6 @@ export const MoviesCardList = () => {
         else if (size < 768)
             return setMoviesCount(8)
 
-
     }, [size]);
 
 
@@ -58,7 +55,8 @@ export const MoviesCardList = () => {
     //чтобы спрятать кнопку придумал такое
     let hideButton = []
     function classNamed() {
-        if (hideButton.length !== filteredMovies.length) { return 'movies-card-list__button movies-card-list__button_visible' }
+        if (hideButton.length !== filteredMovies.length) {
+             return 'movies-card-list__button movies-card-list__button_visible' }
         return 'movies-card-list__button '
     }
 
@@ -69,9 +67,8 @@ export const MoviesCardList = () => {
 
 
 
-//функция поиска
+    //функция поиска
     function search({ searchMessage, checkboxStatus }) {
-
         const regex = new RegExp(searchMessage)
 
         const loadedMovies = JSON.parse(localStorage.getItem('movies'));
@@ -79,7 +76,6 @@ export const MoviesCardList = () => {
         res = loadedMovies
             .filter(({ nameRU }) => regex.test(nameRU))
             .filter(({ duration }) => checkboxStatus ? duration < 40 : <empty />)
-
 
         setFilteredMovies(res)
         if (res.length === 0) { setErrorMEsage('Ничего не найдено 😢') }
@@ -96,10 +92,10 @@ export const MoviesCardList = () => {
             seLocalMovies(JSON.parse(data));
         } else {
             moviesApi.getInitialMovies()
-              .then(data => {
-                seLocalMovies(data);
-                localStorage.setItem('movies', JSON.stringify(data));
-              });
+                .then(data => {
+                    seLocalMovies(data);
+                    localStorage.setItem('movies', JSON.stringify(data));
+                });
         }
 
         if (chachedSearchFilters) {
@@ -125,10 +121,9 @@ export const MoviesCardList = () => {
                         updateLikedMovies(LikedMovies.filter(({ _id }) => _id !== isLikedMovie._id))
                     })
             } else {
-           
+
                 moviesApi.createMovie(data).then((res) => {
                     updateLikedMovies([...LikedMovies, res]);
-
                 })
             }
         }
@@ -137,13 +132,13 @@ export const MoviesCardList = () => {
 
     return (
         <>
-        
+
             <SearchForm errorMes={validateError} submitHandler={search} />
             <section className="movies-card-list">
                 <div className="movies-card-list__grid">
 
                     {hideButton = filteredMovies.map((el) => {
-                        return <MoviesCard  onlikeClick={onLikeMovie(el)} movie={el} key={el.id} isSaved={false} isLiked={LikedMovies.find(({ movieId }) => movieId === el.id)} imageSrc={"https://api.nomoreparties.co" + el.image.url} />
+                        return <MoviesCard onlikeClick={onLikeMovie(el)} movie={el} key={el.id} isSaved={false} isLiked={LikedMovies.find(({ movieId }) => movieId === el.id)} imageSrc={"https://api.nomoreparties.co" + el.image.url} />
                     }).slice(0, moviesCount + (pageCount * newPage))}
 
                 </div>

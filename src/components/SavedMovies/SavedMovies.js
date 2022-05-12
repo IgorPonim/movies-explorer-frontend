@@ -47,6 +47,7 @@ export const SavedMovies = () => {
     }
     
     const searchRgx = searchMessage ? new RegExp(searchMessage) : null;
+    
     const filteredMovies = LikedMovies
         .filter(({ duration }) => checkboxStatus ? duration < 40 : <empty />)
         .filter(({ nameRU }) => searchRgx ? searchRgx.test(nameRU) : true);

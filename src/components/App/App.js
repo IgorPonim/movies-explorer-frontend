@@ -52,7 +52,8 @@ function App() {
       })
   }
 
-  function handleLogin(email, password) {
+  function handleLogin({email, password}) {
+   console.log({email, password})
     MainApi.authorize(email, password)
       .then((res) => {
         setloggedIn(true)
@@ -113,6 +114,7 @@ function App() {
         setloggedIn(false);
         setCurrentUser({})
         history.push('/')
+        
         localStorage.clear('movies');
         localStorage.clear('searchMyMovies');
         localStorage.clear('searchMovies');
