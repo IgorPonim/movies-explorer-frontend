@@ -38,6 +38,7 @@
 .profile__button-container {
     display: flex;
     flex-direction: column;
+    max-height: 130px;
 }
 
 .profile__button {
@@ -45,9 +46,8 @@
     border: none;
     color: #fff;
     width: 100%;
-    
     padding: 0;
-    margin: 0 ;
+    margin: 0;
     font-weight: 400;
     font-size: 13px;
     line-height: 16px;

@@ -25,15 +25,15 @@ export const SavedMovies = () => {
     const [searchMessage, setsearchMessage] = useState(null);
     const [checkboxStatus, setcheckboxStatus] = useState(false);
 
-   
 
-    useEffect(()=>{
-       let mine = LikedMovies.filter(({ owner }) => owner === currentUser._id)
-       
-       updateLikedMovies(mine);
-    },[history, ])
 
-   
+    useEffect(() => {
+        let mine = LikedMovies.filter(({ owner }) => owner === currentUser._id)
+
+        updateLikedMovies(mine);
+    }, [history])
+
+
     const onRemoveMovie = (id) => {
         return () => moviesApi.removeMovie(id).then(() => {
             const updateNew = LikedMovies.filter(({ _id }) => _id !== id);
@@ -45,44 +45,45 @@ export const SavedMovies = () => {
         setsearchMessage(searchMessage);
         setcheckboxStatus(checkboxStatus);
     }
-    
-    const searchRgx = searchMessage ? new RegExp(searchMessage) : null;
-    
+
+    const searchRgx = searchMessage ? new RegExp(searchMessage) : true;
+
     const filteredMovies = LikedMovies
-        .filter(({ duration }) => checkboxStatus ? duration < 40 : <empty />)
-        .filter(({ nameRU }) => searchRgx ? searchRgx.test(nameRU) : true);
+        .filter(({ nameRU }) => searchRgx ? searchRgx.test(nameRU) : true)
+        .filter(({ duration }) => checkboxStatus ? duration < 40 : <empty />);
 
 
 
 
-    return (
-        <>
-            <Header className='header_grey' />
-            <SearchForm submitHandler={search} />
-            <section className="movies-card-list">
-                <div className=" movies-card-list__grid">
-                    {filteredMovies
-                        .map((el) => (
-                            <MoviesCard
-                                onlikeClick={onRemoveMovie(el._id)}
-                                movie={el} key={el.id}
-                                isSaved={true}
+return (
+    <>
+        <Header className='header_grey' />
+        <SearchForm submitHandler={search} />
+        <section className="movies-card-list">
+            <div className=" movies-card-list__grid">
+                {filteredMovies
+                    .map((el) => (
+                        <MoviesCard
+                            onlikeClick={onRemoveMovie(el._id)}
+                            movie={el}
+                            key={el._id}
+                            isSaved={true}
 
-                                imageSrc={el.image} />
-                        ))}
-                </div>
-                <div className='movies-card-list__button-container'>
-                    <button  className={'movies-card-list__button'}>Ещё</button>
-                    <h2></h2>
-                </div>
+                            imageSrc={el.image} />
+                    ))}
+            </div>
+            <div className='movies-card-list__button-container'>
+                <button className={'movies-card-list__button'}>Ещё</button>
+                <h2></h2>
+            </div>
 
-            </section>
-
-
-
+        </section>
 
 
-            <Footer />
-        </>
-    )
+
+
+
+        <Footer />
+    </>
+)
 }

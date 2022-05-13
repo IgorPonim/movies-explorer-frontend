@@ -52,24 +52,24 @@ export const authorize = (email, password) => {
 
 
 
-export const checkToken = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-    }
-  })
+// export const checkToken = (token) => {
+//   return fetch(`${BASE_URL}/users/me`, {
+//     method: 'GET',
+//     headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/json',
+//       'Authorization': `Bearer ${token}`,
+//     }
+//   })
 
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error('Problem with token');
-      }
-      return res.json()
-    })
+//     .then((res) => {
+//       if (!res.ok) {
+//         throw new Error('Problem with token');
+//       }
+//       return res.json()
+//     })
 
-}
+// }
 
 export const getUserInfo = () => {
   return fetch(`${BASE_URL}/users/me`, {

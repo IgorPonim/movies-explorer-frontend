@@ -63,7 +63,7 @@ export const MoviesCardList = () => {
 
     const [errorMessage, setErrorMEsage] = useState('')
     const [filteredMovies, setFilteredMovies] = useState([])
-    const [validateError, setvalidateError] = useState('')
+
 
 
 
@@ -75,7 +75,7 @@ export const MoviesCardList = () => {
         let res = []
         res = loadedMovies
             .filter(({ nameRU }) => regex.test(nameRU))
-            .filter(({ duration }) => checkboxStatus ? duration < 40 : <empty />)
+            .filter(({ duration }) => checkboxStatus ? duration < 40 : true)
 
         setFilteredMovies(res)
         if (res.length === 0) { setErrorMEsage('Ничего не найдено 😢') }
@@ -86,20 +86,20 @@ export const MoviesCardList = () => {
     const [localMovies, seLocalMovies] = useState([]);
     useEffect(() => {
         const data = localStorage.getItem('movies');
-        const chachedSearchFilters = localStorage.getItem('searchMovies');
+        const savedFormRequest = localStorage.getItem('searchMovies');
 
         if (data) {
             seLocalMovies(JSON.parse(data));
         } else {
             moviesApi.getInitialMovies()
                 .then(data => {
-                    seLocalMovies(data);
+                    setMovies(data);
                     localStorage.setItem('movies', JSON.stringify(data));
                 });
         }
 
-        if (chachedSearchFilters) {
-            const form = JSON.parse(chachedSearchFilters);
+        if (savedFormRequest) {
+            const form = JSON.parse(savedFormRequest);
 
             // setSearchFilters(form);
             // setValues(form);
@@ -133,7 +133,7 @@ export const MoviesCardList = () => {
     return (
         <>
 
-            <SearchForm errorMes={validateError} submitHandler={search} />
+            <SearchForm submitHandler={search} />
             <section className="movies-card-list">
                 <div className="movies-card-list__grid">
 
