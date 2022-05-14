@@ -17,41 +17,34 @@ export const SavedMovies = () => {
     const history = useHistory()
     const currentUser = useContext(CurrentUserContext)
 
+
     const [searchMessage, setsearchMessage] = useState(null);
     const [checkboxStatus, setcheckboxStatus] = useState(false);
 
-
-
     //короче загружаю с сервера карточки и фильтрую чтобы остались только мои
-    const [inCasheFilms, setInCasheFilms] = useState([])
-    useEffect(() => {
-        let id = currentUser._id.toString()
-        const movieLiekdFilmsInStorage = localStorage.getItem('Savedmovies');
-        if (movieLiekdFilmsInStorage) {
-            updateLikedMovies(JSON.parse(movieLiekdFilmsInStorage))
-            setPreloader(false)
-        } else {
-            setPreloader(true)
-            moviesApi.getSavedMovies()
-                .then((data) => {
-                    let res = []
-                    res = data.filter(function ({ owner }) {
-                        return owner.includes(id)
-                    })
-                    updateLikedMovies(res)
-                    localStorage.setItem('Savedmovies', JSON.stringify(res));
-                })
 
-                .catch((err) => {
-                    console.log(err)
-                })
-                .finally(() => {
-                 setTimeout(() => {
-                    setPreloader(false)
-                 }, 2000);   
-                })
-        }
-    }, [])
+    useEffect(() => {
+
+        let id = currentUser._id.toString()
+        moviesApi.getSavedMovies()
+
+            .then((data) => {
+
+                let res = []
+                res = data.filter(function ({ owner }) {
+                    return owner.includes(id)
+                });
+                updateLikedMovies(res)
+            })
+
+            .catch((err) => {
+                console.log(err)
+            })
+            .finally(() => {
+
+
+            })
+    }, [currentUser])
 
 
     // useEffect(() => {
@@ -71,10 +64,14 @@ export const SavedMovies = () => {
 
         });
     };
-
+//функция поиска с красивым прелоадером, так как картинки загружены
     const search = ({ searchMessage, checkboxStatus }) => {
-        setsearchMessage(searchMessage);
-        setcheckboxStatus(checkboxStatus);
+        setPreloader(true)
+        setTimeout(() => {
+            setPreloader(false)
+            setsearchMessage(searchMessage);
+            setcheckboxStatus(checkboxStatus);
+        }, 1000);
     }
 
     const searchRgx = searchMessage ? new RegExp(searchMessage) : null;
@@ -91,7 +88,8 @@ export const SavedMovies = () => {
             <Header className='header_grey' />
             <SearchForm submitHandler={search} />
             <section className="movies-card-list">
-                <Preloader isOpen={preloader} />
+                
+                    <Preloader isOpen={preloader}></Preloader>
                 <div className=" movies-card-list__grid">
                     {!preloader && filteredMovies
                         .map((el) => (

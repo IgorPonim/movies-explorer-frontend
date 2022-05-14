@@ -5,6 +5,7 @@ import { moviesApi } from '../../utils/MoviesApi'
 import '../ButtonContainer/ButtonContainer.css'
 import { SearchForm } from '../SearchForm/searchForm'
 import { LikedMoviesContext } from '../../contexts/LikedMoviesContext'
+import { Preloader } from '../Preloader/Preloader'
 
 
 export const MoviesCardList = () => {
@@ -18,11 +19,7 @@ export const MoviesCardList = () => {
         setSize(document.body.offsetWidth)
     }
 
-    window.addEventListener('resize', () => {
-        setTimeout(() => {
-            resize()
-        }, 300)
-    });
+
 
     //теперь нужно задать сколько я отображаю карточек в зависимости от размера окна, 
     //и на сколько элементов я могу расширить массив 
@@ -50,14 +47,13 @@ export const MoviesCardList = () => {
         setNewPage(newPage + 1)
     }
 
-    //чтобы спрятать кнопку придумал такое
-    let hideButton = []
-    function classNamed() {
-        if (hideButton.length !== filteredMovies.length) {
-            return 'movies-card-list__button movies-card-list__button_visible'
-        }
-        return 'movies-card-list__button '
-    }
+    useEffect(() => {
+        window.addEventListener('resize', () => {
+            setTimeout(() => {
+                resize()
+            }, 300)
+        });
+    }, [])
 
 
     const [errorMessage, setErrorMEsage] = useState('')
@@ -78,21 +74,26 @@ export const MoviesCardList = () => {
     }, []);
 
     //функция поиска сделал так сначала
+    const [preloader, setPreloader] = useState(false)
     function search({ searchMessage, checkboxStatus }) {
-        setErrorMEsage('')
+        setPreloader(true)
         const regex = new RegExp(searchMessage)
+        setErrorMEsage('')
         let res = []
-        res = movies
-            .filter(({ nameRU }) => regex.test(nameRU))
-            .filter(({ duration }) => checkboxStatus ? duration < 40 : true)
+        setTimeout(() => {
 
-        setFilteredMovies(res)
-        if (res.length === 0) { setErrorMEsage('Ничего не найдено 😢') }
+            res = movies
+                .filter(({ nameRU }) => regex.test(nameRU))
+                .filter(({ duration }) => checkboxStatus ? duration < 40 : true)
+
+            setFilteredMovies(res)
+            if (res.length === 0) { setErrorMEsage('Ничего не найдено 😢') }
+            setPreloader(false)
+        }, 500);
     }
 
 
-
-//переножу контекст лайкнутых
+    //переножу контекст лайкнутых
     const { LikedMovies, updateLikedMovies } = useContext(LikedMoviesContext)
 
     //лайкаем или удаляем 
@@ -114,20 +115,30 @@ export const MoviesCardList = () => {
     }, [LikedMovies, updateLikedMovies])
 
 
+    //вот так я скрываю кнопочку
+    let parametr = []
+    function hideButton() {
+        if (parametr.length !== filteredMovies.length) {
+            return 'movies-card-list__button movies-card-list__button_visible'
+        }
+        else return 'movies-card-list__button'
+    }
+
     return (
         <>
 
             <SearchForm submitHandler={search} />
             <section className="movies-card-list">
+                <Preloader isOpen={preloader}></Preloader>
                 <div className="movies-card-list__grid">
 
-                    {hideButton = filteredMovies.map((el) => {
+                    {parametr = filteredMovies.map((el) => {
                         return <MoviesCard onlikeClick={onLikeMovie(el)} movie={el} key={el.id} isSaved={false} isLiked={LikedMovies.find(({ movieId }) => movieId === el.id)} imageSrc={"https://api.nomoreparties.co" + el.image.url} />
                     }).slice(0, moviesCount + (pageCount * newPage))}
 
                 </div>
                 <div className='movies-card-list__button-container'>
-                    <button onClick={pushTheButtonToLoadMore} className={classNamed()}>Ещё</button>
+                    <button onClick={pushTheButtonToLoadMore} className={hideButton()}>Ещё</button>
                     <h2>{errorMessage}</h2>
                 </div>
             </section>
