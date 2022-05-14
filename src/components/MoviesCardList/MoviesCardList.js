@@ -45,7 +45,6 @@ export const MoviesCardList = () => {
 
     }, [size]);
 
-
     //виртуальный DOM решает конечно
     function pushTheButtonToLoadMore() {
         setNewPage(newPage + 1)

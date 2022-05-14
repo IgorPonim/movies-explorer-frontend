@@ -10,35 +10,48 @@ import { LikedMoviesContext } from "../../contexts/LikedMoviesContext"
 import { moviesApi } from "../../utils/MoviesApi"
 import { CurrentUserContext } from "../../contexts/CurrentUserContext"
 import { useHistory } from "react-router-dom"
+import { Preloader } from "../Preloader/Preloader"
 
 
 export const SavedMovies = () => {
     const history = useHistory()
     const currentUser = useContext(CurrentUserContext)
 
-
     const [searchMessage, setsearchMessage] = useState(null);
     const [checkboxStatus, setcheckboxStatus] = useState(false);
 
-//короче загружаю с сервера карточки и фильтрую чтобы остались только мои
+
+
+    //короче загружаю с сервера карточки и фильтрую чтобы остались только мои
+    const [inCasheFilms, setInCasheFilms] = useState([])
     useEffect(() => {
         let id = currentUser._id.toString()
-        moviesApi.getSavedMovies()
-            .then((data) => {
-                let res = []
-                res = data.filter(function ({ owner }) {
-                    return owner.includes(id)
-                });
-                updateLikedMovies(res)
-            })
+        const movieLiekdFilmsInStorage = localStorage.getItem('Savedmovies');
+        if (movieLiekdFilmsInStorage) {
+            updateLikedMovies(JSON.parse(movieLiekdFilmsInStorage))
+            setPreloader(false)
+        } else {
+            setPreloader(true)
+            moviesApi.getSavedMovies()
+                .then((data) => {
+                    let res = []
+                    res = data.filter(function ({ owner }) {
+                        return owner.includes(id)
+                    })
+                    updateLikedMovies(res)
+                    localStorage.setItem('Savedmovies', JSON.stringify(res));
+                })
 
-            .catch((err) => {
-                console.log(err)
-            })
-            .finally(() => {
-
-            })
-    }, [history, currentUser])
+                .catch((err) => {
+                    console.log(err)
+                })
+                .finally(() => {
+                 setTimeout(() => {
+                    setPreloader(false)
+                 }, 2000);   
+                })
+        }
+    }, [])
 
 
     // useEffect(() => {
@@ -70,7 +83,7 @@ export const SavedMovies = () => {
         .filter(({ duration }) => checkboxStatus ? duration < 40 : <empty />)
         .filter(({ nameRU }) => searchRgx ? searchRgx.test(nameRU) : true);
 
-
+    const [preloader, setPreloader] = useState(false)
 
 
     return (
@@ -78,8 +91,9 @@ export const SavedMovies = () => {
             <Header className='header_grey' />
             <SearchForm submitHandler={search} />
             <section className="movies-card-list">
+                <Preloader isOpen={preloader} />
                 <div className=" movies-card-list__grid">
-                    {filteredMovies
+                    {!preloader && filteredMovies
                         .map((el) => (
                             <MoviesCard
                                 onlikeClick={onRemoveMovie(el._id)}
