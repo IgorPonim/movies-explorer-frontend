@@ -1,5 +1,5 @@
 import './search-form.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormWithValidation } from '../FormsWithValidation/FormsWithValidation';
 
 
@@ -20,12 +20,13 @@ export const SearchForm = ({ submitHandler, errorMes }) => {
         submitHandler({ searchMessage: values.keyword, checkboxStatus })
 
     }
-    function onInvalid(ev) {
-        document.querySelector('#search-error-message').innerHTML = 'Нужно ввести ключевое слово'
+    function handleInvalid(ev) {
         ev.preventDefault()
+        document.querySelector('#search-error-message').textContent = 'Нужно ввести ключевое слово'
+        
     }
 
-
+  
     const { values, handleChange, errors, isValid, resetForm } =
         useFormWithValidation();
 
@@ -33,11 +34,11 @@ export const SearchForm = ({ submitHandler, errorMes }) => {
 
     return (
         <>
-            <form onSubmit={sumbitSearch} className="search-form">
+            <form  onSubmit={sumbitSearch} className="search-form">
                 <fieldset className="search-form__fieldset">
-                    <input onInvalid={onInvalid} onChange={handleChange} placeholder="&#128269;    Фильм" required className="search-form__input" type="text" id='new-keyword' name="keyword" value={values.keyword || ""} minLength={1} />
-                    <span id='search-error-message' className='validation-error'></span>
-                    <button disabled={!isValid} className="search-form__button" type="submit"></button>
+                    <input onInvalid={handleInvalid }  onChange={handleChange} placeholder="&#128269;    Фильм" required className="search-form__input" type="text" id='new-keyword' name="keyword" value={values.keyword || ""} minLength={1} />
+                    <span id='search-error-message'  className='validation-error'></span>
+                    <button disabled={!isValid } className="search-form__button" type="submit"></button>
                     <div className="search-form__stick" ></div>
                     <div className="search-form__area search-form__fieldset_for_checkbox">
                         <label className="search-form__switch">

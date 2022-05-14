@@ -36,7 +36,7 @@ function App() {
   }
 
 
-
+//регистрация имя пароль мыло
   function handleRegister({ email, password, name }) {
     MainApi.register(email, password, name)
       .then(() => {
@@ -52,8 +52,8 @@ function App() {
       })
   }
 
+  //логин по мылу и паролю
   function handleLogin({ email, password }) {
-   
     MainApi.authorize(email, password)
       .then((res) => {
         setloggedIn(true)
@@ -69,6 +69,8 @@ function App() {
   const [movies, setMovies] = useState([])
   const [LikedMovies, setLikedMovies] = useState([]);
   const [loadingMovies, setLoadingMovies] = useState(false)
+  const [currentUser, setCurrentUser] = useState({})
+
 
   useEffect(() => {
     if (loggedIn) {
@@ -77,7 +79,7 @@ function App() {
           if (res) {
             setloggedIn(true);
             setCurrentUser(res)
-            history.push('/movies')
+            history.push('/')
           } else {
             setloggedIn(false);
           }
@@ -86,28 +88,13 @@ function App() {
           console.log(error)
         });
 
-
-      setLoadingMovies(true);
-
-      moviesApi.getSavedMovies()
-        .then((data) => {
-          setLikedMovies(data);
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-        .finally(() => {
-          setLoadingMovies(false)
-        })
     }
 
   }, [loggedIn, history])
 
 
-  const [currentUser, setCurrentUser] = useState({})
 
-
-
+//выхожу чищу кеш
   function handleLogout() {
     MainApi.logout()
       .then(() => {
@@ -125,13 +112,12 @@ function App() {
       })
   }
 
+//обновляю данные
   function handleUpdateUserInfo({ email, name }) {
-
     MainApi.updateUserInfo(email, name)
       .then(() => {
         setInfoToolOpen(true)
         setInfoToolStatus(true)
-
       })
       .catch((err) => {
         setInfoToolOpen(true)

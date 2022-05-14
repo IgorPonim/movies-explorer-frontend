@@ -29,7 +29,6 @@ export const MoviesCardList = () => {
 
     const [moviesCount, setMoviesCount] = useState(0)
     const [pageCount, setPageCount] = useState(0)
-
     const [newPage, setNewPage] = useState(0)
 
     useEffect(() => {
@@ -56,7 +55,8 @@ export const MoviesCardList = () => {
     let hideButton = []
     function classNamed() {
         if (hideButton.length !== filteredMovies.length) {
-             return 'movies-card-list__button movies-card-list__button_visible' }
+            return 'movies-card-list__button movies-card-list__button_visible'
+        }
         return 'movies-card-list__button '
     }
 
@@ -64,32 +64,11 @@ export const MoviesCardList = () => {
     const [errorMessage, setErrorMEsage] = useState('')
     const [filteredMovies, setFilteredMovies] = useState([])
 
-
-
-
-    //функция поиска
-    function search({ searchMessage, checkboxStatus }) {
-        const regex = new RegExp(searchMessage)
-
-        const loadedMovies = JSON.parse(localStorage.getItem('movies'));
-        let res = []
-        res = loadedMovies
-            .filter(({ nameRU }) => regex.test(nameRU))
-            .filter(({ duration }) => checkboxStatus ? duration < 40 : true)
-
-        setFilteredMovies(res)
-        if (res.length === 0) { setErrorMEsage('Ничего не найдено 😢') }
-
-    }
-
-
-    const [localMovies, seLocalMovies] = useState([]);
+    //загружаю карточки в локалсторадж
     useEffect(() => {
-        const data = localStorage.getItem('movies');
-        const savedFormRequest = localStorage.getItem('searchMovies');
-
-        if (data) {
-            seLocalMovies(JSON.parse(data));
+        const movieDataInStorage = localStorage.getItem('movies');
+        if (movieDataInStorage) {
+            setMovies(JSON.parse(movieDataInStorage));
         } else {
             moviesApi.getInitialMovies()
                 .then(data => {
@@ -97,18 +76,24 @@ export const MoviesCardList = () => {
                     localStorage.setItem('movies', JSON.stringify(data));
                 });
         }
-
-        if (savedFormRequest) {
-            const form = JSON.parse(savedFormRequest);
-
-            // setSearchFilters(form);
-            // setValues(form);
-        }
     }, []);
 
+    //функция поиска сделал так сначала
+    function search({ searchMessage, checkboxStatus }) {
+        setErrorMEsage('')
+        const regex = new RegExp(searchMessage)
+        let res = []
+        res = movies
+            .filter(({ nameRU }) => regex.test(nameRU))
+            .filter(({ duration }) => checkboxStatus ? duration < 40 : true)
+
+        setFilteredMovies(res)
+        if (res.length === 0) { setErrorMEsage('Ничего не найдено 😢') }
+    }
 
 
 
+//переножу контекст лайкнутых
     const { LikedMovies, updateLikedMovies } = useContext(LikedMoviesContext)
 
     //лайкаем или удаляем 

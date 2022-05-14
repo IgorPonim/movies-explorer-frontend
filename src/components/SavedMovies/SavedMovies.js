@@ -17,27 +17,45 @@ export const SavedMovies = () => {
     const currentUser = useContext(CurrentUserContext)
 
 
-    // const isOwn = LikedMovies.owner === currentUser._id;
-
-
-
-    const { LikedMovies, updateLikedMovies } = useContext(LikedMoviesContext)
     const [searchMessage, setsearchMessage] = useState(null);
     const [checkboxStatus, setcheckboxStatus] = useState(false);
 
-
-
+//короче загружаю с сервера карточки и фильтрую чтобы остались только мои
     useEffect(() => {
-        let mine = LikedMovies.filter(({ owner }) => owner === currentUser._id)
+        let id = currentUser._id.toString()
+        moviesApi.getSavedMovies()
+            .then((data) => {
+                let res = []
+                res = data.filter(function ({ owner }) {
+                    return owner.includes(id)
+                });
+                updateLikedMovies(res)
+            })
 
-        updateLikedMovies(mine);
-    }, [history])
+            .catch((err) => {
+                console.log(err)
+            })
+            .finally(() => {
+
+            })
+    }, [history, currentUser])
 
 
+    // useEffect(() => {
+    //     let mine = LikedMovies.filter(({ owner }) => owner === currentUser._id)
+
+    //     updateLikedMovies(mine);
+    // }, [history])
+
+    const { LikedMovies, updateLikedMovies } = useContext(LikedMoviesContext)
+
+
+    //удаляем и обновляем контекст
     const onRemoveMovie = (id) => {
         return () => moviesApi.removeMovie(id).then(() => {
             const updateNew = LikedMovies.filter(({ _id }) => _id !== id);
             updateLikedMovies(updateNew);
+
         });
     };
 
@@ -46,44 +64,44 @@ export const SavedMovies = () => {
         setcheckboxStatus(checkboxStatus);
     }
 
-    const searchRgx = searchMessage ? new RegExp(searchMessage) : true;
+    const searchRgx = searchMessage ? new RegExp(searchMessage) : null;
 
-    const filteredMovies = LikedMovies
-        .filter(({ nameRU }) => searchRgx ? searchRgx.test(nameRU) : true)
-        .filter(({ duration }) => checkboxStatus ? duration < 40 : <empty />);
-
-
-
-
-return (
-    <>
-        <Header className='header_grey' />
-        <SearchForm submitHandler={search} />
-        <section className="movies-card-list">
-            <div className=" movies-card-list__grid">
-                {filteredMovies
-                    .map((el) => (
-                        <MoviesCard
-                            onlikeClick={onRemoveMovie(el._id)}
-                            movie={el}
-                            key={el._id}
-                            isSaved={true}
-
-                            imageSrc={el.image} />
-                    ))}
-            </div>
-            <div className='movies-card-list__button-container'>
-                <button className={'movies-card-list__button'}>Ещё</button>
-                <h2></h2>
-            </div>
-
-        </section>
+    let filteredMovies = LikedMovies
+        .filter(({ duration }) => checkboxStatus ? duration < 40 : <empty />)
+        .filter(({ nameRU }) => searchRgx ? searchRgx.test(nameRU) : true);
 
 
 
 
+    return (
+        <>
+            <Header className='header_grey' />
+            <SearchForm submitHandler={search} />
+            <section className="movies-card-list">
+                <div className=" movies-card-list__grid">
+                    {filteredMovies
+                        .map((el) => (
+                            <MoviesCard
+                                onlikeClick={onRemoveMovie(el._id)}
+                                movie={el}
+                                key={el._id}
+                                isSaved={true}
 
-        <Footer />
-    </>
-)
+                                imageSrc={el.image} />
+                        ))}
+                </div>
+                <div className='movies-card-list__button-container'>
+                    <button className={'movies-card-list__button'}>Ещё</button>
+                    <h2></h2>
+                </div>
+
+            </section>
+
+
+
+
+
+            <Footer />
+        </>
+    )
 }
