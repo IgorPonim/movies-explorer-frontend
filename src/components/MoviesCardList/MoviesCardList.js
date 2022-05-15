@@ -73,10 +73,12 @@ export const MoviesCardList = () => {
         }
     }, []);
 
-    //функция поиска сделал так сначала
+    //функция поиска, вроде фурычит
     const [preloader, setPreloader] = useState(false)
     function search({ searchMessage, checkboxStatus }) {
+        if (parametr.length > 0) { setFilteredMovies([]) }
         setPreloader(true)
+
         const regex = new RegExp(searchMessage)
         setErrorMEsage('')
         let res = []
@@ -85,7 +87,7 @@ export const MoviesCardList = () => {
             res = movies
                 .filter(({ nameRU }) => regex.test(nameRU))
                 .filter(({ duration }) => checkboxStatus ? duration < 40 : true)
-
+            //надо было на Python идти
             setFilteredMovies(res)
             if (res.length === 0) { setErrorMEsage('Ничего не найдено 😢') }
             setPreloader(false)

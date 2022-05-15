@@ -44,7 +44,7 @@ export const SavedMovies = () => {
 
 
             })
-    }, [currentUser])
+    }, [])
 
 
     // useEffect(() => {
@@ -65,13 +65,17 @@ export const SavedMovies = () => {
         });
     };
 //функция поиска с красивым прелоадером, так как картинки загружены
+
     const search = ({ searchMessage, checkboxStatus }) => {
         setPreloader(true)
+   
         setTimeout(() => {
             setPreloader(false)
             setsearchMessage(searchMessage);
             setcheckboxStatus(checkboxStatus);
-        }, 1000);
+        }, 600);
+       
+  
     }
 
     const searchRgx = searchMessage ? new RegExp(searchMessage) : null;
@@ -81,6 +85,7 @@ export const SavedMovies = () => {
         .filter(({ nameRU }) => searchRgx ? searchRgx.test(nameRU) : true);
 
     const [preloader, setPreloader] = useState(false)
+
 
 
     return (
@@ -104,7 +109,7 @@ export const SavedMovies = () => {
                 </div>
                 <div className='movies-card-list__button-container'>
                     <button className={'movies-card-list__button'}>Ещё</button>
-                    <h2></h2>
+               {filteredMovies.length === 0 && <h2>Ничего не найдено 😢</h2>    }     
                 </div>
 
             </section>
