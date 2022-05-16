@@ -103,6 +103,7 @@ function App() {
         history.push('/')
         localStorage.clear('movies');
         localStorage.clear('searchMovies');
+        localStorage.clear('searchMoviesCashe');
       })
       .catch((err) => {
         setInfoToolOpen(true)

@@ -6,10 +6,11 @@ import '../ButtonContainer/ButtonContainer.css'
 import { SearchForm } from '../SearchForm/searchForm'
 import { LikedMoviesContext } from '../../contexts/LikedMoviesContext'
 import { Preloader } from '../Preloader/Preloader'
+import { useHistory } from 'react-router-dom'
 
 
 export const MoviesCardList = () => {
-
+const history = useHistory()
     const [movies, setMovies] = useState([])
 
     //повешу слушатель на размер окошка
@@ -18,8 +19,6 @@ export const MoviesCardList = () => {
     function resize() {
         setSize(document.body.offsetWidth)
     }
-
-
 
     //теперь нужно задать сколько я отображаю карточек в зависимости от размера окна, 
     //и на сколько элементов я могу расширить массив 
@@ -72,29 +71,45 @@ export const MoviesCardList = () => {
                 });
         }
     }, []);
+   
 
     //функция поиска, вроде фурычит
     const [preloader, setPreloader] = useState(false)
+
     function search({ searchMessage, checkboxStatus }) {
         if (parametr.length > 0) { setFilteredMovies([]) }
         setPreloader(true)
-
+      
         const regex = new RegExp(searchMessage)
         setErrorMEsage('')
-        let res = []
         setTimeout(() => {
+            let res = []
+
 
             res = movies
                 .filter(({ nameRU }) => regex.test(nameRU))
                 .filter(({ duration }) => checkboxStatus ? duration < 40 : true)
             //надо было на Python идти
-            setFilteredMovies(res)
+
             if (res.length === 0) { setErrorMEsage('Ничего не найдено 😢') }
+            localStorage.setItem('searchParams', JSON.stringify({ searchMessage, checkboxStatus, res }));
+            localStorage.setItem('resultinallmovies', JSON.stringify(res ));
             setPreloader(false)
-        }, 500);
-      localStorage.setItem('searchMovies',JSON.stringify({ searchMessage, checkboxStatus, filteredMovies }) );
+
+            setFilteredMovies(res)
+            // setcashe(res)
+        }, 350);
+
+
     }
 
+    const [cashe, setcashe] = useState([])
+    useEffect(() => {
+        
+        const biba = localStorage.getItem('resultinallmovies')
+        setcashe(JSON.parse(biba))
+        setFilteredMovies(cashe)
+    },[ movies])
 
     //переножу контекст лайкнутых
     const { LikedMovies, updateLikedMovies } = useContext(LikedMoviesContext)
@@ -122,7 +137,7 @@ export const MoviesCardList = () => {
     let parametr = []
     function hideButton() {
         if (parametr.length !== filteredMovies.length) {
-            return 'movies-card-list__button movies-card-list__button_visible'
+            return 'movies-card-list__button movies-card-list__bustton_visible'
         }
         else return 'movies-card-list__button'
     }

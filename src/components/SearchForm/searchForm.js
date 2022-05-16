@@ -13,7 +13,7 @@ export const SearchForm = ({ submitHandler, errorMes }) => {
     }
 
     useEffect(() => {
-        const searchResultOfAllMovies = localStorage.getItem('searchMovies');
+        const searchResultOfAllMovies = localStorage.getItem('searchParams');
         const searchResultOfSavedMovies = localStorage.getItem('searchMoviesSaved');
         if (searchResultOfAllMovies && window.location.href.indexOf("/movies") > -1) {
             const result = JSON.parse(searchResultOfAllMovies);
