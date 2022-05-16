@@ -12,6 +12,21 @@ export const SearchForm = ({ submitHandler, errorMes }) => {
         setCheckboxStatus(!checkboxStatus);
     }
 
+    useEffect(() => {
+        const searchResultOfAllMovies = localStorage.getItem('searchMovies');
+        const searchResultOfSavedMovies = localStorage.getItem('searchMoviesSaved');
+        if (searchResultOfAllMovies && window.location.href.indexOf("/movies") > -1) {
+            const result = JSON.parse(searchResultOfAllMovies);
+
+            setCheckboxStatus(result.checkboxStatus);
+            values.keyword = result.searchMessage
+        } else if (searchResultOfSavedMovies && window.location.href.indexOf("/saved-movies") > -1) {
+            const result2 = JSON.parse(searchResultOfSavedMovies);
+
+            setCheckboxStatus(result2.checkboxStatus);
+            values.keyword = result2.searchMessage
+        }
+    }, [])
 
 
 
@@ -23,22 +38,22 @@ export const SearchForm = ({ submitHandler, errorMes }) => {
     function handleInvalid(ev) {
         ev.preventDefault()
         document.querySelector('#search-error-message').textContent = 'Нужно ввести ключевое слово'
-        
+
     }
 
-  
-    const { values, handleChange, errors, isValid, resetForm } =
+
+    const { values, handleChange, errors, isValid, resetForm, setValues } =
         useFormWithValidation();
 
 
 
     return (
         <>
-            <form  onSubmit={sumbitSearch} className="search-form">
+            <form onSubmit={sumbitSearch} className="search-form">
                 <fieldset className="search-form__fieldset">
-                    <input onInvalid={handleInvalid }  onChange={handleChange} placeholder="&#128269;    Фильм" required className="search-form__input" type="text" id='new-keyword' name="keyword" value={values.keyword || ""} minLength={1} />
-                    <span id='search-error-message'  className='validation-error'></span>
-                    <button disabled={!isValid } className="search-form__button" type="submit"></button>
+                    <input onInvalid={handleInvalid} onChange={handleChange} placeholder="&#128269;    Фильм" required className="search-form__input" type="text" id='new-keyword' name="keyword" value={values.keyword || ""} minLength={1} />
+                    <span id='search-error-message' className='validation-error'></span>
+                    <button disabled={!isValid} className="search-form__button" type="submit"></button>
                     <div className="search-form__stick" ></div>
                     <div className="search-form__area search-form__fieldset_for_checkbox">
                         <label className="search-form__switch">

@@ -92,6 +92,7 @@ export const MoviesCardList = () => {
             if (res.length === 0) { setErrorMEsage('Ничего не найдено 😢') }
             setPreloader(false)
         }, 500);
+      localStorage.setItem('searchMovies',JSON.stringify({ searchMessage, checkboxStatus, filteredMovies }) );
     }
 
 
@@ -99,7 +100,7 @@ export const MoviesCardList = () => {
     const { LikedMovies, updateLikedMovies } = useContext(LikedMoviesContext)
 
     //лайкаем или удаляем 
-    const onLikeMovie = useCallback((data) => {
+    const onLikeMovie = ((data) => {
         return () => {
             const isLikedMovie = LikedMovies.find(({ movieId }) => movieId === data.id)
             if (isLikedMovie) {
@@ -114,7 +115,7 @@ export const MoviesCardList = () => {
                 })
             }
         }
-    }, [LikedMovies, updateLikedMovies])
+    })
 
 
     //вот так я скрываю кнопочку

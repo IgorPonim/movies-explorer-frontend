@@ -64,18 +64,18 @@ export const SavedMovies = () => {
 
         });
     };
-//функция поиска с красивым прелоадером, так как картинки загружены
+    //функция поиска с красивым прелоадером, так как картинки загружены
 
     const search = ({ searchMessage, checkboxStatus }) => {
         setPreloader(true)
-   
+
         setTimeout(() => {
             setPreloader(false)
             setsearchMessage(searchMessage);
             setcheckboxStatus(checkboxStatus);
         }, 600);
-       
-  
+
+        localStorage.setItem('searchMoviesSaved',JSON.stringify({ searchMessage, checkboxStatus }) );
     }
 
     const searchRgx = searchMessage ? new RegExp(searchMessage) : null;
@@ -93,8 +93,8 @@ export const SavedMovies = () => {
             <Header className='header_grey' />
             <SearchForm submitHandler={search} />
             <section className="movies-card-list">
-                
-                    <Preloader isOpen={preloader}></Preloader>
+
+                <Preloader isOpen={preloader}></Preloader>
                 <div className=" movies-card-list__grid">
                     {!preloader && filteredMovies
                         .map((el) => (
@@ -109,7 +109,7 @@ export const SavedMovies = () => {
                 </div>
                 <div className='movies-card-list__button-container'>
                     <button className={'movies-card-list__button'}>Ещё</button>
-               {filteredMovies.length === 0 && <h2>Ничего не найдено 😢</h2>    }     
+                    {filteredMovies.length === 0 && <h2>Ничего не найдено 😢</h2>}
                 </div>
 
             </section>

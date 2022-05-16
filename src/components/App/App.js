@@ -114,9 +114,10 @@ function App() {
 //обновляю данные
   function handleUpdateUserInfo({ email, name }) {
     MainApi.updateUserInfo(email, name)
-      .then(() => {
+      .then((res) => {
         setInfoToolOpen(true)
         setInfoToolStatus(true)
+        setCurrentUser( res )
       })
       .catch((err) => {
         setInfoToolOpen(true)
