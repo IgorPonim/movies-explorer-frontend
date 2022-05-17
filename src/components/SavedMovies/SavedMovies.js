@@ -22,36 +22,35 @@ export const SavedMovies = () => {
     const [checkboxStatus, setcheckboxStatus] = useState(false);
 
     //короче загружаю с сервера карточки и фильтрую чтобы остались только мои
-
+    const [filteredMovies, setFilteredMovies] = useState([])
     useEffect(() => {
-
         let id = currentUser._id.toString()
-        moviesApi.getSavedMovies()
+        const filter = localStorage.getItem('resultiSavedlmovies')
+        if (filteredMovies !== LikedMovies) {
+            setFilteredMovies(JSON.parse(filter))
+          setFilteredMovies(LikedMovies)
+        }
 
-            .then((data) => {
+        else if (filteredMovies !== LikedMovies) {
+            moviesApi.getSavedMovies()
 
-                let res = []
-                res = data.filter(function ({ owner }) {
-                    return owner.includes(id)
-                });
-                updateLikedMovies(res)
-            })
+                .then((data) => {
 
-            .catch((err) => {
-                console.log(err)
-            })
-            .finally(() => {
+                    let res = []
+                    res = data.filter(function ({ owner }) {
+                        return owner.includes(id)
+                    });
+                    updateLikedMovies(res)
+                })
 
-
-            })
+                .catch((err) => {
+                    console.log(err)
+                })
+                .finally(() => {
+                })
+        }
     }, [])
 
-
-    // useEffect(() => {
-    //     let mine = LikedMovies.filter(({ owner }) => owner === currentUser._id)
-
-    //     updateLikedMovies(mine);
-    // }, [history])
 
     const { LikedMovies, updateLikedMovies } = useContext(LikedMoviesContext)
 
@@ -61,12 +60,12 @@ export const SavedMovies = () => {
         return () => moviesApi.removeMovie(id).then(() => {
             const updateNew = LikedMovies.filter(({ _id }) => _id !== id);
             updateLikedMovies(updateNew);
-
+            setFilteredMovies(updateNew)
         });
     };
     //функция поиска с красивым прелоадером, так как картинки загружены
-
     const search = ({ searchMessage, checkboxStatus }) => {
+
         setPreloader(true)
 
         setTimeout(() => {
@@ -75,18 +74,19 @@ export const SavedMovies = () => {
             setcheckboxStatus(checkboxStatus);
         }, 600);
 
-        localStorage.setItem('searchMoviesSaved',JSON.stringify({ searchMessage, checkboxStatus }) );
+        localStorage.setItem('searchMoviesSaved', JSON.stringify({ searchMessage, checkboxStatus }));
+
+        const searchRgx = searchMessage ? new RegExp(searchMessage) : null;
+
+        let filteredMovies = LikedMovies
+            .filter(({ duration }) => checkboxStatus ? duration < 40 : true)
+            .filter(({ nameRU }) => searchRgx ? searchRgx.test(nameRU) : true);
+        setFilteredMovies(filteredMovies)
+        localStorage.setItem('resultiSavedlmovies', JSON.stringify(filteredMovies));
     }
 
-    const searchRgx = searchMessage ? new RegExp(searchMessage) : null;
-
-    let filteredMovies = LikedMovies
-        .filter(({ duration }) => checkboxStatus ? duration < 40 : <empty />)
-        .filter(({ nameRU }) => searchRgx ? searchRgx.test(nameRU) : true);
 
     const [preloader, setPreloader] = useState(false)
-
-
 
     return (
         <>
@@ -113,11 +113,6 @@ export const SavedMovies = () => {
                 </div>
 
             </section>
-
-
-
-
-
             <Footer />
         </>
     )

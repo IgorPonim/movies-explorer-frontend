@@ -104,6 +104,8 @@ function App() {
         localStorage.clear('movies');
         localStorage.clear('searchMovies');
         localStorage.clear('searchMoviesCashe');
+        localStorage.clear('resultinSAVEDmovies');
+        localStorage.clear('resultinallmovies')
       })
       .catch((err) => {
         setInfoToolOpen(true)
