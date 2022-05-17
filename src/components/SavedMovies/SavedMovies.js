@@ -21,17 +21,16 @@ export const SavedMovies = () => {
     const [searchMessage, setsearchMessage] = useState(null);
     const [checkboxStatus, setcheckboxStatus] = useState(false);
 
-    //короче загружаю с сервера карточки и фильтрую чтобы остались только мои
+    //короче загружаю с сервера карточки и фильтрую чтобы остались только мои, либо загружаю с локалстораджа
     const [filteredMovies, setFilteredMovies] = useState([])
     useEffect(() => {
         let id = currentUser._id.toString()
         const filter = localStorage.getItem('resultiSavedlmovies')
-        if (filteredMovies !== LikedMovies) {
-            setFilteredMovies(JSON.parse(filter))
-          setFilteredMovies(LikedMovies)
-        }
+        if (filter) { setFilteredMovies(JSON.parse(filter)) }
 
-        else if (filteredMovies !== LikedMovies) {
+
+        else {
+            setFilteredMovies(LikedMovies)
             moviesApi.getSavedMovies()
 
                 .then((data) => {
@@ -48,6 +47,9 @@ export const SavedMovies = () => {
                 })
                 .finally(() => {
                 })
+        }
+        if (filteredMovies === LikedMovies) {
+            setFilteredMovies(LikedMovies)
         }
     }, [])
 
