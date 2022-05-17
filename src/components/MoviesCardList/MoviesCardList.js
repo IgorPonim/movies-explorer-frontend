@@ -2,11 +2,12 @@ import './MoviesCardList.css'
 import { MoviesCard } from '../MoviesCard/MoviesCard'
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { moviesApi } from '../../utils/MoviesApi'
-import '../ButtonContainer/ButtonContainer.css'
+
 import { SearchForm } from '../SearchForm/searchForm'
 import { LikedMoviesContext } from '../../contexts/LikedMoviesContext'
 import { Preloader } from '../Preloader/Preloader'
 import { useHistory } from 'react-router-dom'
+import '../ButtonContainer/ButtonContainer.css'
 
 
 export const MoviesCardList = () => {
@@ -106,8 +107,8 @@ const history = useHistory()
     const [cashe, setcashe] = useState([])
     useEffect(() => {
         
-        const biba = localStorage.getItem('resultinallmovies')
-        setcashe(JSON.parse(biba))
+        const res = localStorage.getItem('resultinallmovies')
+       if (res) { setcashe(JSON.parse(res))}
         setFilteredMovies(cashe)
     },[ movies])
 
@@ -137,7 +138,7 @@ const history = useHistory()
     let parametr = []
     function hideButton() {
         if (parametr.length !== filteredMovies.length) {
-            return 'movies-card-list__button movies-card-list__bustton_visible'
+            return 'movies-card-list__button movies-card-list__button_visible'
         }
         else return 'movies-card-list__button'
     }
