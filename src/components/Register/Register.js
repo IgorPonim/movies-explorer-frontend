@@ -5,6 +5,7 @@ import { useFormWithValidation } from "../FormsWithValidation/FormsWithValidatio
 import { Header } from "../Header/Header"
 import '../Header/Header.css'
 import './Register.css'
+import logo from '../../images/logo.svg'
 
 export const Register = ({onRegister}) => {
 
@@ -41,7 +42,7 @@ export const Register = ({onRegister}) => {
             <section className="register">
                 <form onSubmit={handleSubmit} className="register__container">
                     <Link to='/'>
-                        <img className="header_logo header_logo_register-position" src="/static/media/logo.6427ffc3dd1ac70c1e165d30d5f6bc3c.svg" alt="лого" />
+                        <img className="header_logo header_logo_register-position" src={logo} alt="лого" />
                     </Link>
                     <h2 className="register__title">Добро пожаловать!</h2>
 
