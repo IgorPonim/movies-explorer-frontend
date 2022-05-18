@@ -28,11 +28,9 @@ export const SavedMovies = () => {
         const filter = localStorage.getItem('resultiSavedlmovies')
         if (filter) { setFilteredMovies(JSON.parse(filter)) }
 
-
         else {
             setFilteredMovies(LikedMovies)
             moviesApi.getSavedMovies()
-
                 .then((data) => {
 
                     let res = []
@@ -41,7 +39,6 @@ export const SavedMovies = () => {
                     });
                     updateLikedMovies(res)
                 })
-
                 .catch((err) => {
                     console.log(err)
                 })
