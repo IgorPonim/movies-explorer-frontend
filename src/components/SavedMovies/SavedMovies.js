@@ -29,7 +29,7 @@ export const SavedMovies = () => {
         if (filter) { setFilteredMovies(JSON.parse(filter)) }
 
         else {
-            setFilteredMovies(LikedMovies)
+           
             moviesApi.getSavedMovies()
                 .then((data) => {
 
@@ -38,6 +38,7 @@ export const SavedMovies = () => {
                         return owner.includes(id)
                     });
                     updateLikedMovies(res)
+                    setFilteredMovies(res)
                 })
                 .catch((err) => {
                     console.log(err)
@@ -45,9 +46,11 @@ export const SavedMovies = () => {
                 .finally(() => {
                 })
         }
+       
         if (filteredMovies === LikedMovies) {
             setFilteredMovies(LikedMovies)
         }
+        
     }, [])
 
 
@@ -75,7 +78,7 @@ export const SavedMovies = () => {
 
         localStorage.setItem('searchMoviesSaved', JSON.stringify({ searchMessage, checkboxStatus }));
 
-        const searchRgx = searchMessage ? new RegExp(searchMessage) : null;
+        const searchRgx = searchMessage ? new RegExp(searchMessage, 'i') : null;
 
         let filteredMovies = LikedMovies
             .filter(({ duration }) => checkboxStatus ? duration < 40 : true)

@@ -36,21 +36,48 @@ function App() {
   }
 
 
-//регистрация имя пароль мыло
+  useEffect(() => {
+
+    MainApi.getUserInfo()
+      .then((res) => {
+        if (res) {
+          // console.log(res)
+          history.push('/movies')
+          setloggedIn(true);
+          setCurrentUser(res)
+
+        } else {
+          setloggedIn(false);
+          history.push('/')
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
+  }, [loggedIn, history])
+
+
+  //регистрация имя пароль мыло
   function handleRegister({ email, password, name }) {
     MainApi.register(email, password, name)
+    handleLogin({ email, password })
       .then(() => {
         console.log('успешно')
         showToolTip()
         setInfoToolStatus(true)
-        history.push('/signin')
+        setloggedIn(true)
+
+        history.push('/movies')
       })
+
       .catch((err) => {
         showToolTip()
         setInfoToolStatus(false)
         console.log(err)
       })
   }
+
 
   //логин по мылу и паролю
   function handleLogin({ email, password }) {
@@ -72,33 +99,29 @@ function App() {
   const [currentUser, setCurrentUser] = useState({})
 
 
+
   useEffect(() => {
     if (loggedIn) {
       MainApi.getUserInfo()
         .then((res) => {
-          if (res) {
-            setloggedIn(true);
-            setCurrentUser(res)
-            history.push('/')
-          } else {
-            setloggedIn(false);
-          }
+          setCurrentUser(res)
+          history.push('/movies')
+
         })
         .catch((error) => {
           console.log(error)
+
         });
-
     }
-
+    else { history.push('/') }
   }, [loggedIn, history])
 
 
 
-//выхожу чищу кеш
+  //выхожу чищу кеш
   function handleLogout() {
     MainApi.logout()
       .then(() => {
-        setloggedIn(false);
         setCurrentUser({})
         history.push('/')
         localStorage.clear('movies');
@@ -106,6 +129,7 @@ function App() {
         localStorage.clear('searchMoviesCashe');
         localStorage.clear('resultinSAVEDmovies');
         localStorage.clear('resultinallmovies')
+        setloggedIn(false);
       })
       .catch((err) => {
         setInfoToolOpen(true)
@@ -114,13 +138,13 @@ function App() {
       })
   }
 
-//обновляю данные
+  //обновляю данные
   function handleUpdateUserInfo({ email, name }) {
     MainApi.updateUserInfo(email, name)
       .then((res) => {
         setInfoToolOpen(true)
         setInfoToolStatus(true)
-        setCurrentUser( res )
+        setCurrentUser(res)
       })
       .catch((err) => {
         setInfoToolOpen(true)
@@ -160,10 +184,11 @@ function App() {
             <Route path={'/signin'} exact>
               <Login loggedIn={handleLogin} />
             </Route>
-            <Route path={'*'}>
 
+            <Route path='*'>
               <NotFound />
             </Route>
+
           </Switch>
           <InfoToolTip isOpen={InfoToolOpen} status={InfoToolStatus} onClose={() => setInfoToolOpen(false)} />
         </LikedMoviesContext.Provider>

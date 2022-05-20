@@ -81,7 +81,7 @@ const history = useHistory()
         if (parametr.length > 0) { setFilteredMovies([]) }
         setPreloader(true)
       
-        const regex = new RegExp(searchMessage)
+        const regex = new RegExp(searchMessage, 'i')
         setErrorMEsage('')
         setTimeout(() => {
             let res = []

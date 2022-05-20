@@ -82,7 +82,7 @@ export const getUserInfo = () => {
     .then((res) => {
 
       if (!res.ok) {
-        throw new Error('Logout Error');
+        throw new Error('Требуется авторизация');
       }
 
       return res.json();
@@ -112,11 +112,12 @@ export const updateUserInfo = (email, name) => {
 export const logout = () => {
   return fetch(`${BASE_URL}/logout`, {
     method: 'GET',
+  
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-
+    credentials: 'include',
   })
     .then((res) => {
 
