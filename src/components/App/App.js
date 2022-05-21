@@ -24,7 +24,7 @@ import { LikedMoviesContext } from '../../contexts/LikedMoviesContext';
 
 
 function App() {
-
+  const [currentUser, setCurrentUser] = useState({})
   const [InfoToolOpen, setInfoToolOpen] = useState(false)
   const [InfoToolStatus, setInfoToolStatus] = useState(false)
   const [loggedIn, setloggedIn] = useState(false)
@@ -41,10 +41,11 @@ function App() {
     MainApi.getUserInfo()
       .then((res) => {
         if (res) {
+          setCurrentUser(res)
           // console.log(res)
           history.push('/movies')
           setloggedIn(true);
-          setCurrentUser(res)
+         
 
         } else {
           setloggedIn(false);
@@ -66,8 +67,10 @@ function App() {
         showToolTip()
         MainApi.authorize(email, password)
           .then((res) => setloggedIn(true), setInfoToolStatus(true))
+          
         console.log('успешно')
         history.push('/movies')
+        
       })
 
       .catch((err) => {
@@ -83,8 +86,10 @@ function App() {
   function handleLogin({ email, password }) {
     MainApi.authorize(email, password)
       .then((res) => {
+        setCurrentUser(res)
         setloggedIn(true)
         setInfoToolStatus(true)
+    
       })
       .catch((err) => {
         console.log(err)
@@ -97,7 +102,7 @@ function App() {
   const [movies, setMovies] = useState([])
   const [LikedMovies, setLikedMovies] = useState([]);
   const [loadingMovies, setLoadingMovies] = useState(false)
-  const [currentUser, setCurrentUser] = useState({})
+
 
 
 
@@ -123,7 +128,7 @@ function App() {
   function handleLogout() {
     MainApi.logout()
       .then(() => {
-        setCurrentUser({})
+        setCurrentUser('')
         history.push('/')
         localStorage.clear('movies');
         localStorage.clear('searchMovies');

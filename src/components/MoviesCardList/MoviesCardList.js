@@ -8,6 +8,7 @@ import { LikedMoviesContext } from '../../contexts/LikedMoviesContext'
 import { Preloader } from '../Preloader/Preloader'
 import { useHistory } from 'react-router-dom'
 import '../ButtonContainer/ButtonContainer.css'
+import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 
 export const MoviesCardList = () => {
@@ -103,7 +104,28 @@ const history = useHistory()
 
 
     }
+    const currentUser = useContext(CurrentUserContext)
+    let id = currentUser._id.toString()
+    useEffect(() => {
+       
+     
+            moviesApi.getSavedMovies()
+                .then((data) => {
 
+                    let res = []
+                    res = data.filter(function ({ owner }) {
+                        return owner.includes(id)
+                    });
+                    updateLikedMovies(res)
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+                .finally(() => {
+                })
+        
+      
+    }, [])
     const [cashe, setcashe] = useState([])
     useEffect(() => {
         
