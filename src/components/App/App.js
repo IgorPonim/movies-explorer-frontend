@@ -60,14 +60,13 @@ function App() {
 
   //регистрация имя пароль мыло
   function handleRegister({ email, password, name }) {
-    MainApi.register(email, password, name)
-    handleLogin({ email, password })
-      .then(() => {
-        console.log('успешно')
-        showToolTip()
-        setInfoToolStatus(true)
-        setloggedIn(true)
 
+    MainApi.register(email, password, name)
+      .then(() => {
+        showToolTip()
+        MainApi.authorize(email, password)
+          .then((res) => setloggedIn(true), setInfoToolStatus(true))
+        console.log('успешно')
         history.push('/movies')
       })
 
@@ -75,6 +74,7 @@ function App() {
         showToolTip()
         setInfoToolStatus(false)
         console.log(err)
+        setloggedIn(false)
       })
   }
 
@@ -84,6 +84,7 @@ function App() {
     MainApi.authorize(email, password)
       .then((res) => {
         setloggedIn(true)
+        setInfoToolStatus(true)
       })
       .catch((err) => {
         console.log(err)
@@ -106,11 +107,11 @@ function App() {
         .then((res) => {
           setCurrentUser(res)
           history.push('/movies')
-
+          setInfoToolStatus(true)
         })
         .catch((error) => {
           console.log(error)
-
+          setInfoToolStatus(false)
         });
     }
     else { history.push('/') }
@@ -130,6 +131,7 @@ function App() {
         localStorage.clear('resultinSAVEDmovies');
         localStorage.clear('resultinallmovies')
         setloggedIn(false);
+        setLikedMovies([])
       })
       .catch((err) => {
         setInfoToolOpen(true)

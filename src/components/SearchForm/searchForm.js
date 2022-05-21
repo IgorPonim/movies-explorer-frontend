@@ -40,14 +40,13 @@ export const SearchForm = ({ submitHandler, errorMes }) => {
 
     const { values, handleChange, errors, isValid, resetForm, setValues } =
         useFormWithValidation();
-    errors.validationMessage = 'Нужно ввести ключевое слово'
 
     return (
         <>
             <form onSubmit={sumbitSearch} className="search-form">
                 <fieldset className="search-form__fieldset">
                     <input onChange={handleChange} placeholder="&#128269;    Фильм" required className="search-form__input" type="text" id='new-keyword' name="keyword" value={values.keyword || ""} minLength={1} />
-                    <span id='search-error-message' className='validation-error'>{errors.keyword}</span>
+                    <span id='search-error-message' className='validation-error'>{errors.keyword && 'Нужно ввести ключевое слово'}</span>
                     <button disabled={!isValid} className="search-form__button" type="submit"></button>
                     <div className="search-form__stick" ></div>
                     <div className="search-form__area search-form__fieldset_for_checkbox">
