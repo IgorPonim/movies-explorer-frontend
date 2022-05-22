@@ -28,18 +28,15 @@ export const Profile = ({ changeInfo, handleLogOut }) => {
 
 
     function handleSubmit(ev) {
+
         ev.preventDefault()
         changeInfo(values)
     }
 
-    useEffect(() => {
-        setEmail(currentUser.email)
-        setName((currentUser.name))
-    }, [currentUser, history])
 
 
 
-    const { values, handleChange, errors, isValid, resetForm } =
+    const { values, handleChange, errors, isValid, resetForm, setIsValid } =
         useFormWithValidation();
 
     useEffect(() => {
@@ -47,7 +44,16 @@ export const Profile = ({ changeInfo, handleLogOut }) => {
             name: currentUser.name,
             email: currentUser.email
         });
+
     }, [currentUser, resetForm])
+
+    useEffect(() => {
+        if (values.name === currentUser.name && values.email === currentUser.email) { setIsValid(false) }
+
+        setEmail(currentUser.email)
+        setName((currentUser.name))
+
+    }, [currentUser, history, values])
 
     return (
         <>
@@ -70,13 +76,13 @@ export const Profile = ({ changeInfo, handleLogOut }) => {
                         <div className="profile__input_area">
 
                             <label className="profile__label">E-mail</label>
-                            <input onChange={handleChange} className="profile__input" minLength={2} maxLength={30} value={values.email || ""} id="email" name="email" type="email" 
-                            pattern="^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$" required />
+                            <input onChange={handleChange} className="profile__input" minLength={2} maxLength={30} value={values.email || ""} id="email" name="email" type="email"
+                                pattern="^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$" required />
                         </div>
 
                         <span className='validation-error'>{errors.email}</span>
 
-                        <button onClick={handleSubmit} disabled={!isValid} className={isValid ? 'profile__button' : 'profile__button profile__button_dark' }>Редактировать</button>
+                        <button onClick={handleSubmit} disabled={!isValid} className={isValid ? 'profile__button' : 'profile__button profile__button_dark'}>Редактировать</button>
                     </form >
 
                     <div className="profile__button-container">

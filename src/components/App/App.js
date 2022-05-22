@@ -192,7 +192,7 @@ function App() {
               <Login loggedIn={handleLogin} />
             </Route>
 
-            <Route path='*'>
+            <Route path={'*'}>
               <NotFound />
             </Route>
 
@@ -201,6 +201,7 @@ function App() {
         </LikedMoviesContext.Provider>
 
       </ CurrentUserContext.Provider >
+      
     </div>
 
   );
