@@ -148,6 +148,14 @@
     margin-top: 5.7%;
 }
 
+.input-search__error{
+    color: red;
+    font-size: 14px;
+    height: max-content;
+    
+}
+
+
 @media screen and (max-width: 768px) {
     .search-form {
         padding: 75px 30px 5%;

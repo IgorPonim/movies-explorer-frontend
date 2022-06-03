@@ -87,6 +87,10 @@
 .header__account:hover{
 text-decoration: underline;
 }
+.header__account_green{
+    background:#3DDC84 ;
+    color: black
+}
 
 .header__burder {
     background-image: url('../../images/burger-menu.6875e104.svg');

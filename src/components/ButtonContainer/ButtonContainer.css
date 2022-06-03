@@ -23,6 +23,10 @@
     display: none;
 }
 
+.movies-card-list__button:hover{
+    outline: rgb(219, 198, 77) 1px solid;
+}
+
 .movies-card-list__button_visible {
     display: block;
 }

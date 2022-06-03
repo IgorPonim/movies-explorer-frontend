@@ -1,0 +1,46 @@
+.InfoTool {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: rgba(0, 0, 0, .5);
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .5s ease, visibility linear .5s;
+    display: flex;
+}
+
+.InfoTool_open {
+    display: flex;
+    visibility: visible;
+    opacity: 1;
+}
+
+.InfoTool__content {
+    position: relative;
+}
+
+.InfoTool__close {
+    background-color: transparent;
+    background-color: initial;
+    background-image: url('../../images/xx.svg');
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 32px;
+    border: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    height: 32px;
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    transition: .1s linear;
+    width: 32px;
+}
+
+.popup__close:hover {
+    opacity: .6;
+}

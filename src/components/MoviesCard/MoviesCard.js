@@ -1,17 +1,55 @@
 import './MoviesCard.css'
+import DeleteMovie from '../../images/but1Delete.svg'
+import Liked from '../../images/but2Save.svg'
+import EmptyLike from '../../images/but3Neitral.svg'
+import { useContext } from 'react'
+import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 
-export const MoviesCard = ({ status }) => {
+export const MoviesCard = ({ isSaved, isLiked, movie, imageSrc, onlikeClick }) => {
+
+    const currentUser = useContext(CurrentUserContext)
+    //перевожу минуты в часы
+    function getTimeFromMins(mins) {
+        let hours = Math.trunc(mins / 60);
+        let minutes = mins % 60;
+        return hours + 'ч ' + minutes + 'м';
+    };
+
+    const { nameRU, duration, trailerLink } = movie || <></>
+
+    function handlelikeClick (ev) {
+        ev.preventDefault();
+        onlikeClick()
+        
+    }
+
+    // const isOwn = movie.owner === currentUser._id;
+    // const className = (
+    //     `movie-card ${isOwn ? 'movie-card_visible' : 'element__delete_hidden'}`
+    // );
+
     return (
         <>
-            <article className="movie-card">
-                <div className="movie-card__description">
-                    <h2 className="movie-card__name">33 слова о дизайне</h2>
-                    <button className={`movie-card__button ${status ? 'movie-card__button_liked' : ''}`}/>
-                        <p className="movie-card__duration">1ч 47м</p>
+            <article className='movie-card '>
+                <div className='movie-card__description'>
+                    <h2 className='movie-card__name'>{nameRU}</h2>
+                    <button onClick={handlelikeClick} className='movie-card__button' >
+
+                        {isSaved
+                            ? <img className='movie-card__delete' src={DeleteMovie} alt='удалить' />
+                            : <img className='movie-card__like' alt='лайк' src={isLiked ? Liked : EmptyLike} />
+                        }
+
+                    </button>
+
+                    <p className='movie-card__duration'>{getTimeFromMins(duration)}</p>
                 </div>
-                <img className="movie-card__image" alt="Красивая картиночка"
-                    src={'https://cq-esports.com/storage/uploads/cosplay-characters/1209685/1.jpg'} />
+
+                <a rel='noreferrer' href={trailerLink} target='_blank'>
+                    <img src={imageSrc} className='movie-card__image' alt='Красивая картиночка' />
+                </a>
+               
             </article>
         </>
     )

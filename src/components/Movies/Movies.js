@@ -12,10 +12,7 @@ export const Movies = () => {
     return (
         <>
             <Header className='header_grey' />
-            <SearchForm />
-            <Preloader isOpen={false} />
             <MoviesCardList />
-            <ButtonContainer show={true} />
             <Footer />
         </>
     )
